@@ -7,13 +7,12 @@ class Lampyridae.Canvas
    ### Construct and manage a canvas element
    #
    # @param id [String] Name of the #id selector for the canvas element
-   # @param parent [String] Name of the element to attatch the canvas to (defaults to body)
+   # @param parent [String] Name of the element to attach the canvas to (defaults to body)
    # @todo Add options + add selection of an exisiting canvas
    ###
    constructor: (@id, @parent = 'body') ->
-      # Check minimum arguments
-      unless arguments.length >= 1
-         throw new Error "Canvas requires an \#id selector"
+      unless arguments.length > 0
+         throw new Error "Lampyridae: Canvas requires an \#id selector"
       
       @element = document.createElement 'canvas'
       @context = @element.getContext '2d'

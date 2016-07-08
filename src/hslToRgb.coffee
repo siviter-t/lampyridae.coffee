@@ -30,9 +30,9 @@ Lampyridae.hslToRgb = (h, s, l) ->
     
     q = if l < 0.5 then l * (1 + s) else l + s - (l * s)
     p = 2 * l - q
-    r = hue2rgb(p, q, h + 1 / 3)
-    g = hue2rgb(p, q, h)
-    b = hue2rgb(p, q, h - 1 / 3)
+    r = hue2rgb p, q, h + 1 / 3
+    g = hue2rgb p, q, h
+    b = hue2rgb p, q, h - 1 / 3
   
   return [Math.round(255 * r), Math.round(255 * g), Math.round(255 * b)]
 # end function Lampyridae.hslToRgb

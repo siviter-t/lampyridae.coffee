@@ -10,7 +10,7 @@ $(document).ready ->
    
    createBugs = () ->
       for i in [0...numOfBugs]
-         bug = new Lampyridae.Bug 25, 25, 0, 8, canvas
+         bug = new Lampyridae.Bug canvas
          bugs.push bug
       return
       

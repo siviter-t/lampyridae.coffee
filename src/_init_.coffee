@@ -33,7 +33,21 @@ window.Lampyridae.bugHueMax = 102.72 # Green
 window.Lampyridae.bugHueMin = 65.28 # Yellow
 window.Lampyridae.bugSaturation = '100%'
 window.Lampyridae.bugLightness = '50%'
+window.Lampyridae.bugOpacity = 0.7
 window.Lampyridae.bugRadiusMax = 2.0
 window.Lampyridae.bugRadiusMin = 0.25
-window.Lampyridae.bugTurningAngle = 0.25 * Math.PI
+window.Lampyridae.bugSpeedMin = 1
+window.Lampyridae.bugSpeedMax = 7
+window.Lampyridae.bugTurningAngle = 0.1 * Math.PI
 window.Lampyridae.timestep = 1
+
+### Available classes
+###
+window.Lampyridae.Bug
+window.Lampyridae.Canvas
+window.Lampyridae.Particle
+
+### Available functions
+###
+window.Lampyridae.hslToRgb
+window.Lampyridae.rand
