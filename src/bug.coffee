@@ -13,6 +13,9 @@ class Lampyridae.Bug
    ###
    constructor: (@x, @y, @theta, @v, @canvas) ->
       @radius = (Lampyridae.bugRadiusMax - Lampyridae.bugRadiusMin) * Math.random() + Lampyridae.bugRadiusMin
+      randomWavelength = (Lampyridae.bugHueMax - Lampyridae.bugHueMin) * Math.random() + Lampyridae.bugHueMin
+      @RGB = Lampyridae.hslToRgb(randomWavelength, Lampyridae.bugSaturation, Lampyridae.bugLightness)
+      @rgb = "rgb(#{@RGB[0]}, #{@RGB[1]}, #{@RGB[2]})"
       return
    
    vx: () -> return @v * Math.cos(@theta)
@@ -56,7 +59,7 @@ class Lampyridae.Bug
    draw: () ->
       @canvas.context.beginPath()
       @canvas.context.arc @x, @y, @radius, 0.0, 2.0 * Math.PI, false
-      @canvas.context.fillStyle = Lampyridae.bugDefaultColour
+      @canvas.context.fillStyle = @rgb
       @canvas.context.fill()
       return
 # end class Lampyridae.Bug

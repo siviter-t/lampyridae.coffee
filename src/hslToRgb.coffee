@@ -34,5 +34,5 @@ Lampyridae.hslToRgb = (h, s, l) ->
     g = hue2rgb(p, q, h)
     b = hue2rgb(p, q, h - 1 / 3)
   
-  return [255 * r, 255 * g, 255 * b]
+  return [Math.round(255 * r), Math.round(255 * g), Math.round(255 * b)]
 # end function Lampyridae.hslToRgb
