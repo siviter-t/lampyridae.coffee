@@ -8,7 +8,7 @@
 > beetles, and commonly called *fireflies* or *lightning bugs* for their conspicuous use of
 > bioluminescence during twilight to attract mates or prey. Fireflies produce a "cold light",
 > with no infrared or ultraviolet frequencies.
-<span style="margin: 1.2em 0 0; padding: 0 2em; float: right;">
+<span style="margin: 2em 0 0; padding: 0 2em; float: right;">
 — <a href="https://en.wikipedia.org/wiki/Firefly">Wikipedia</a>, the free encyclopedia. 
 </span>  
 <br>
