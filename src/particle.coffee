@@ -13,8 +13,9 @@ class Lampyridae.Particle
    # @param v [Number] Speed of the particle
    # @param r [Number] Radius of the particle
    # @param rgb [String] RGB Colour code of the particle - e.g. "rgb(255, 255, 255)"
+   # @param a [Number] Opacity of the particle
    ###
-   constructor: (@canvas, @x, @y, @theta, @v, @radius, @rgb) -> return
+   constructor: (@canvas, @x, @y, @theta, @v, @radius, @rgb, @a) -> return
    
    vx: () -> return @v * Math.cos(@theta)
    vy: () -> return @v * Math.sin(@theta)
@@ -47,10 +48,27 @@ class Lampyridae.Particle
       @draw()
       return
    
-   draw: () ->
+   draw: (r = @radius, a = Lampyridae.PI2) ->
+      # Move simple glow effect elsewhere with option (callback?)
+      @canvas.context.globalAlpha = 0.5;
+      @canvas.context.shadowBlur = 80
+      @canvas.context.shadowColor = @rgb
       @canvas.context.beginPath()
-      @canvas.context.arc @x, @y, @radius, 0.0, 2.0 * Math.PI, false
-      @canvas.context.fillStyle = @rgb
-      @canvas.context.fill()
+      
+      @drawCircle()
+      @canvas.context.closePath()
       return
+   
+   ## Draw a circle onto the Canvas instance
+   #
+   # @param x [Number] Position along x-axis to draw around. Default: @x
+   # @param y [Number] Position along y-axis to draw around. Default: @y
+   # @param r [Number] Radius of the arc. Default: @radius
+   # @param t [Number] Final angle of arc. Default: 2 * PI (i.e. a circle)
+   # @param c [String] Colour code to fill the circle with
+   ##
+   drawCircle: (x = @x, y = @y, r = @radius, t = Lampyridae.PI2, c = @rgb) ->
+      @canvas.context.arc x, y, r, 0.0, t, false
+      @canvas.context.fillStyle = c
+      @canvas.context.fill()
 # end class Lampyridae.Bug

@@ -15,18 +15,19 @@ class Lampyridae.Bug extends Lampyridae.Particle
    # @param r [Number] Radius of the bug
    # @param c [Array] RGB Colour code array of the bug - e.g. "[r, g, b]"
    ###
-   constructor: (canvas, x, y, t, v, r, c) ->
+   constructor: (canvas, x, y, t, v, r, c, a) ->
       unless arguments.length > 0
          throw new Error "Lampyridae: Bug requires a valid Canvas instance to be attached to"
       x ?= Lampyridae.rand 0, canvas.width() 
       y ?= Lampyridae.rand 0, canvas.height()
       v ?= Lampyridae.rand Lampyridae.bugSpeedMin, Lampyridae.bugSpeedMax
-      t ?= Lampyridae.rand 0.0, 2.0 * Math.PI
+      t ?= Lampyridae.rand 0.0, Lampyridae.PI2
       r ?= Lampyridae.rand Lampyridae.bugRadiusMin, Lampyridae.bugRadiusMax
       h = Lampyridae.rand Lampyridae.bugHueMin, Lampyridae.bugHueMax
       c ?= Lampyridae.hslToRgb h, Lampyridae.bugSaturation, Lampyridae.bugLightness
-      c = "rgba(#{c[0]}, #{c[1]}, #{c[2]}, #{Lampyridae.bugOpacity})"
-      super(canvas, x, y, t, v, r, c)
+      c = "rgb(#{c[0]}, #{c[1]}, #{c[2]})"
+      a ?= Lampyridae.bugOpacity
+      super(canvas, x, y, t, v, r, c, a)
       return
    
    randomTurn: () -> @turn Lampyridae.bugTurningAngle * (2.0 * Math.random() - 1.0); return
