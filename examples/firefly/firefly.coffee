@@ -1,11 +1,17 @@
+# @file firefly.coffee
+# @Copyright (c) 2016 Taylor Siviter
+# This source code is licensed under the MIT License.
+# For full information, see the LICENSE file in the project root.
 
 ###
-# Example usage
+# Example usage of lampyridae.coffee
 ###
 $(document).ready ->
    canvas = new Lampyridae.Canvas 'world'
    
-   numOfBugs = 50
+   Lampyridae.bugSpeedMax = 5
+   
+   numOfBugs = 25
    bugs = []
    
    createBugs = () ->

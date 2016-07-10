@@ -39,11 +39,12 @@ class Lampyridae.Bug extends Lampyridae.Particle
       @fly()
       @draw()
       
-   # draw: () ->
-   #    @canvas.draw.begin()
-   #    @canvas.draw.setGlobalAlpha @alpha
-   #    @canvas.draw.glow 2.0 * @r, @colour
-   #    @canvas.draw.circle @x, @y, @r
-   #    @canvas.draw.fill @colour
-   #    @canvas.draw.end()
+   draw: () ->
+      @canvas.draw.begin()
+      @canvas.draw.setGlobalAlpha @alpha
+      if Lampyridae.enableSimpleGlow
+         @canvas.draw.glow 2.0 * @r, @colour
+      @canvas.draw.circle @x, @y, @r
+      @canvas.draw.fill @colour
+      @canvas.draw.end()
 # end class Lampyridae.Bug

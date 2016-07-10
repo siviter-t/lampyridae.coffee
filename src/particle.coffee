@@ -49,8 +49,6 @@ class Lampyridae.Particle
    
    draw: () ->
       @canvas.draw.begin()
-      @canvas.draw.setGlobalAlpha @alpha
-      @canvas.draw.glow 2.0 * @r, @colour
       @canvas.draw.circle @x, @y, @r
       @canvas.draw.fill @colour
       @canvas.draw.end()
