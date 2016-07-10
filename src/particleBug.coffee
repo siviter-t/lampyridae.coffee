@@ -5,7 +5,7 @@
 
 # TODO: Extend from a generic particle class
 class Lampyridae.Bug extends Lampyridae.Particle
-   ### Construct and manage a Lampyridae bug 'particle'
+   ### Construct and manage a Lampyridae bug 'particle'.
    #
    # @param canvas [Object] Instance of Lampyridae.Canvas to attach the bug to
    # @param x [Number] Position of the bug along the x-axis
@@ -27,18 +27,23 @@ class Lampyridae.Bug extends Lampyridae.Particle
       c ?= Lampyridae.hslToRgb h, Lampyridae.bugSaturation, Lampyridae.bugLightness
       c = "rgb(#{c[0]}, #{c[1]}, #{c[2]})"
       a ?= Lampyridae.bugOpacity
-      super(canvas, x, y, t, v, r, c, a)
-      return
+      super(canvas, x, y, t, v, r, {colour: c, alpha: a})
    
-   randomTurn: () -> @turn Lampyridae.bugTurningAngle * (2.0 * Math.random() - 1.0); return
+   randomTurn: () -> @turn Lampyridae.bugTurningAngle * (2.0 * Math.random() - 1.0)
    
    # Todo: Add option for periodic or hard-wall boundaries
    fly: () ->
       @applyHardBounds()
-      return
    
    update: () ->
       @fly()
       @draw()
-      return
+      
+   # draw: () ->
+   #    @canvas.draw.begin()
+   #    @canvas.draw.setGlobalAlpha @alpha
+   #    @canvas.draw.glow 2.0 * @r, @colour
+   #    @canvas.draw.circle @x, @y, @r
+   #    @canvas.draw.fill @colour
+   #    @canvas.draw.end()
 # end class Lampyridae.Bug

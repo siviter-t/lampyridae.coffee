@@ -4,14 +4,14 @@
 # For full information, see the LICENSE file in the project root.
 
 class Lampyridae.Canvas
-   ### Construct and manage a canvas element
+   ### Construct and manage a canvas element.
    #
    # @param id [String] Name of the #id selector for the canvas element
    # @param parent [String] Name of the element to attach the canvas to (defaults to body)
    # @todo Add options + add selection of an exisiting canvas
    ###
    constructor: (@id, @parent = 'body') ->
-      unless arguments.length > 0
+      if arguments.length < 1
          throw new Error "Lampyridae: Canvas requires an \#id selector"
       
       @element = document.createElement 'canvas'
@@ -19,11 +19,12 @@ class Lampyridae.Canvas
       @setID()
       @append()
       @resizeToParent()
-      $(window).resize => @resizeToParent(); return
-      return   
+      $(window).resize => @resizeToParent()
+      @draw = new Draw @
       
    width: () -> return $(@element).width()
    height: () -> return $(@element).height()
+   area: () -> return $(@element).width() * $(@element).height() 
    
    setWidth: (width = $(@parent).innerWidth() ) -> 
       $(@element).width(width).attr('width', width)
@@ -38,9 +39,8 @@ class Lampyridae.Canvas
    append: (@parent = @parent) ->
       $(@parent).append @element
       console.log "Lampyridae: Appended \##{@id} to #{@parent}"
-      return
    
-   resizeToParent: () -> @setWidth(); @setHeight(); return
-   
-   clear: () -> @context.clearRect 0, 0, @width(), @height(); return
+   resizeToParent: () ->
+      @setWidth()
+      @setHeight()
 # end class Lampyridae.Canvas

@@ -3,7 +3,7 @@
 # This source code is licensed under the MIT License.
 # For full information, see the LICENSE file in the project root.
 
-### Generates a random float from the given interval [l, u) where u > l
+### Generates a random float from the given interval [l, u) where u > l.
 #
 # @param l [Number] The lower bound of the interval
 # @param u [Number] The upper bound of the interval

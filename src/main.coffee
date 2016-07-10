@@ -15,9 +15,9 @@ $(document).ready ->
       return
       
    animate = () ->
-      canvas.clear()
+      canvas.draw.clear()
       update()
-      # requestAnimationFrame animate # Undo for animation
+      requestAnimationFrame animate
       return
    
    update = () ->
