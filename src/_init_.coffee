@@ -18,7 +18,7 @@
 #   
 #   foo = new Lampyridae.Foo
 #
-initL = do ->
+do () ->
    if not window.Lampyridae? then window.Lampyridae = {}
    else
       err = new Error 'Lampyridae namespace could not be assigned. Is there a conflict?'
