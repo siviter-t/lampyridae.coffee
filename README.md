@@ -1,6 +1,6 @@
 # lampyridae.coffee
 
-#### A simple particle effect written in CoffeeScript
+#### A simple suite of particle effects written in CoffeeScript
 
 ***
 

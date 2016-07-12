@@ -1,0 +1,38 @@
+{
+  "name": "lampyridae.coffee",
+  "version": "0.2.0",
+  "description": "A simple suite of particle effects written in CoffeeScript",
+  "main": "lib/lampyridae.js",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siviter-t/lampyridae.coffee.git"
+  },
+  "keywords": [
+    "lampyridae",
+    "lampyridae.coffee",
+    "firefly",
+    "fireflies",
+    "lightning bug",
+    "particle",
+    "2d",
+    "canvas"
+  ],
+  "author": "Taylor Siviter <taylor@siviter.xyz> (http://siviter.xyz/)",
+  "license": "MIT",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/siviter-t/lampyridae.coffee/issues"
+  },
+  "homepage": "https://github.com/siviter-t/lampyridae.coffee",
+  "devDependencies": {
+    "coffee-script": "^1.10.0",
+    "uglify-js": "^2.6.0"
+  }
+}
