@@ -12,7 +12,6 @@
 <span style="margin: -0.5em 0 0; float: right;">
 — <a href="https://en.wikipedia.org/wiki/Firefly">Wikipedia</a>, the free encyclopedia. 
 </span>  
-<br>
 
 Lampyridae.coffee is a lightweight CoffeeScript framework that can be used to produce simple 
 two-dimensional particle effects with the canvas DOM element.
