@@ -6,6 +6,8 @@
 ###
 # Example usage of lampyridae.coffee
 ###
+require 'particle/bug'
+
 $(document).ready ->
    canvas = new Lampyridae.Canvas 'world'
    

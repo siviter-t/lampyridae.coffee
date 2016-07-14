@@ -3,6 +3,8 @@
 # This source code is licensed under the MIT License.
 # For full information, see the LICENSE file in the project root.
 
+require 'lampyridae'
+
 ### Converts HSL colour to RGB.
 # Code adapted from:
 # @see https://github.com/bgrins/TinyColor
@@ -36,3 +38,5 @@ Lampyridae.hslToRgb = (h, s, l) ->
   
   return [Math.round(255 * r), Math.round(255 * g), Math.round(255 * b)]
 # end function Lampyridae.hslToRgb
+
+module.exports = Lampyridae.hslToRgb

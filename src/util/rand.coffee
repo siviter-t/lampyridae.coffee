@@ -3,6 +3,8 @@
 # This source code is licensed under the MIT License.
 # For full information, see the LICENSE file in the project root.
 
+require 'lampyridae'
+
 ### Generates a random float from the given interval [l, u) where u > l.
 #
 # @param l [Number] The lower bound of the interval
@@ -13,3 +15,5 @@ Lampyridae.rand = (l, u) ->
    if arguments.length == 0 then return Math.random()
    return (u - l) * Math.random() + l
 # end function Lampyridae.rand
+
+module.exports = Lampyridae.rand

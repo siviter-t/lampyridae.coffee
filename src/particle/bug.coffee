@@ -3,7 +3,11 @@
 # This source code is licensed under the MIT License.
 # For full information, see the LICENSE file in the project root.
 
-# TODO: Extend from a generic particle class
+require 'lampyridae'
+require 'particle/particle'
+require 'util/hslToRgb'
+require 'util/rand'
+
 class Lampyridae.Bug extends Lampyridae.Particle
    ### Construct and manage a Lampyridae bug 'particle'.
    #
@@ -48,3 +52,5 @@ class Lampyridae.Bug extends Lampyridae.Particle
       @canvas.draw.fill @colour
       @canvas.draw.end()
 # end class Lampyridae.Bug
+
+module.exports = Lampyridae.Bug

@@ -3,6 +3,8 @@
 # This source code is licensed under the MIT License.
 # For full information, see the LICENSE file in the project root.
 
+require 'lampyridae'
+
 class Lampyridae.Particle
    ### Construct and manage a generic circular particle.
    #
@@ -53,3 +55,5 @@ class Lampyridae.Particle
       @canvas.draw.fill @colour
       @canvas.draw.end()
 # end class Lampyridae.Particle
+
+module.exports = Lampyridae.Particle

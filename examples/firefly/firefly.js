@@ -5,6 +5,8 @@
  */
 
 (function() {
+  require('particle/bug');
+
   $(document).ready(function() {
     var animate, bugs, canvas, createBugs, numOfBugs, update;
     canvas = new Lampyridae.Canvas('world');

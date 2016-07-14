@@ -20,7 +20,7 @@ class Lampyridae.Canvas
       @append()
       @resizeToParent()
       $(window).resize => @resizeToParent()
-      @draw = new Draw @
+      @draw = new Lampyridae.Draw @
       
    width: () -> return $(@element).width()
    height: () -> return $(@element).height()
@@ -44,3 +44,5 @@ class Lampyridae.Canvas
       @setWidth()
       @setHeight()
 # end class Lampyridae.Canvas
+
+module.exports = Lampyridae.Canvas

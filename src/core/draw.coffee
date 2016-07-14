@@ -3,7 +3,7 @@
 # This source code is licensed under the MIT License.
 # For full information, see the LICENSE file in the project root.
 
-Lampyridae.Canvas.prototype.Draw = class Draw
+class Lampyridae.Draw
    ### Construct and manage a Canvas 2D drawing object.
    #
    # @param canvas [Lampyridae.Canvas] Instance of the Canvas
@@ -106,3 +106,5 @@ Lampyridae.Canvas.prototype.Draw = class Draw
    circle: (x, y, radius) -> @arc x, y, radius, Lampyridae.PI2
    
 # end class Lampyridae.Canvas.Draw
+
+module.exports = Lampyridae.Draw

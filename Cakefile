@@ -3,10 +3,11 @@
 ## Cakefile requirements
 fs            = require 'fs'
 {exec, spawn} = require 'child_process'
+pkg           = require './package.json'
 
 ##  Application settings
-appName    = 'lampyridae'
-appVersion = '0.1'
+appName    = pkg.name.replace(/\.[^/.]+$/, "")
+appVersion = pkg.version
 src        = 'src'              # Source directory - relative to Cakefile
 build      = 'build'            # Where to mirror the source directory for std builds
 lib        = 'lib'              # Where to put joined and minified versions of the app
