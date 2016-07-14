@@ -1,92 +1,98 @@
-# Todo: Add version number to built lib files e.g. lampyridae-0.3-min.js
+# @file Cakefile
+# @Copyright (c) 2016 Taylor Siviter
+# This source code is licensed under the MIT License.
+# For full information, see the LICENSE file in the project root.
 
 ## Cakefile requirements
-fs            = require 'fs'
-{exec, spawn} = require 'child_process'
-pkg           = require './package.json'
+fs      = require 'fs'
+{spawn} = require 'child_process'
+pkg     = require './package.json'
 
 ##  Application settings
-appName    = pkg.name.replace(/\.[^/.]+$/, "")
-appVersion = pkg.version
-src        = 'src'              # Source directory - relative to Cakefile
-build      = 'build'            # Where to mirror the source directory for std builds
-lib        = 'lib'              # Where to put joined and minified versions of the app
-coffeeExt  = '.coffee'          # Extension used for CoffeeScripts files
-minSuffix  = '-min'             # Notation used to indicated a minified .js file
+appName   = pkg.name.replace(/\.[^/.]+$/, "")
+src       = 'src'              # Source directory - relative to Cakefile
+build     = 'build'            # Where to mirror the source directory for std builds
+lib       = 'lib'              # Where to put joined and minified versions of the app
+coffeeExt = '.coffee'          # Extension used for CoffeeScripts files
+minSuffix = 'min'             # Notation used to indicated a minified .js file
 
 ## ANSI Terminal Colours
 unless process.env.NODE_DISABLE_COLORS
-  bold       = '\x1B[0;1m'
-  underline  = '\x1B[0;4m'
-  black      = '\x1b[0;30m'
-  red        = '\x1B[0;31m'
-  green      = '\x1B[0;32m'
-  yellow     = '\x1B[0;33m'
-  blue       = '\x1B[0;34m'
-  magenta    = '\x1B[0;35m'
-  cyan       = '\x1B[0;36m'
-  white      = '\x1B[0;37m'
-  reset      = '\x1B[0m'
+  bold      = '\x1B[0;1m'
+  underline = '\x1B[0;4m'
+  black     = '\x1b[0;30m'
+  red       = '\x1B[0;31m'
+  green     = '\x1B[0;32m'
+  yellow    = '\x1B[0;33m'
+  blue      = '\x1B[0;34m'
+  magenta   = '\x1B[0;35m'
+  cyan      = '\x1B[0;36m'
+  white     = '\x1B[0;37m'
+  rese      = '\x1B[0m'
+
+## Message format
+msgFormat = (message, format = '', extra = '') -> "#{format}#{message}#{reset} #{extra}"
 
 ## Echo a message with formatting
-echo = (message, format = '', extra = '') ->
-  console.log "#{format}#{message}#{reset} #{extra}"
+echo = (message, format = '', extra = '') -> console.log msgFormat(message, format, extra)
 
-## CoffeeScript compilation
-compile = (args, type = '', callback) ->
-  echo 'Executing CoffeeScript compiler:', yellow, type 
-  coffee = spawn 'coffee', args
-  coffee.stderr.on 'data', (data) ->
-    process.stderr.write data.toString()
-  coffee.stdout.on 'data', (data) ->
-    echo data.toString(), bold
-  coffee.on 'exit', (code) ->
-    callback?() if code is 0
-    echo 'Compilation successful.', green, 'Exiting.'
+## Cakefile options
+# option '-b', '--bare', 'Compile without a top-level function wrapper'
+option '-o', '--output', 'Where to output the compiled files (compile)'
+option '-s', '--source [DIR]', 'Where to read the target files (compile)'
+option '-v', '--versioned', 'Append package version to the minified file (minify)'
+option '-w', '--watch [DIR]', 'Watch the source files and rebuild if changed (compile|build)'
 
-## Source file concatenation (.coffee)
-joinFiles = (srcFiles, callback) ->
-  echo 'Source files to join:', magenta, srcFiles
-  catFile = "#{build}/#{appName}#{coffeeExt}"
-  srcFiles = ("#{src}/" + file for file in srcFiles when file.match(/\.(lit)?coffee$/))
-  echo 'Joining source files...', yellow 
-  cat = spawn 'cat', srcFiles
-  cat.stderr.on 'data', (data) ->
-    process.stderr.write data.toString()
-  cat.stdout.on 'data', (data) ->
-    fs.writeFileSync(catFile, data.toString(), 'utf8');
-  cat.on 'exit', (code) ->
-    callback?() if code is 0
-    echo 'Concatenation successful ->', green, catFile
-  return catFile
-
-## Compilation additional options
-option '-b', '--bare', 'Compile without a top-level function wrapper'
-option '-w', '--watch', 'Watch the source files and rebuild if changed'
-
-compileOptions = (options) ->
-  args = []
-  if options.watch then args.push '--watch'
-  if options.bare then args.push '--bare'
-  if args.length > 0
-    echo 'Additional compilation flags:', cyan, args
+processOptions = (options) ->
+  args = {}
+  if options.output then args.output = options.output
+  if options.source then args.source = options.source
+  if options.versioned then args.versioned = "-#{pkg.version}-"
+  if options.watch then args.watch = 'watch'
+  if Object.keys(args).length > 0
+    echo '[cake] Flags:', cyan, Object.keys(args)
   return args
 
-## Standard build - Transcompile all files in #{src}/*#{coffeeExt} to #{build}/*l.js
-task 'build', "Transcompile all files in #{src}/*#{coffeeExt} to #{build}/*.js", (options) ->
-  defaultArgs = ['--compile', '--output', "#{build}", "#{src}"]
-  compile compileOptions(options).concat(defaultArgs), 'Standard'
+## Compile - Transpile all files in the present working directory
+task 'compile', "Transpile all files in the present working directory: #{process.env.PWD}", (options) ->
+  args = processOptions(options)
+  pwd = process.env.PWD
+  echo '[cake]', magenta, 'Starting the CoffeeScript compiler'
+  child = spawn 'coffee', ['-c', '-o', args.output ? '.', args.source ? '.'], { cwd: pwd }
+  child.stderr.on 'data', (data) ->
+    process.stderr.write msgFormat('[stderr]', red, data.toString())
+  child.stdout.on 'data', (data) ->
+    process.stdout.write msgFormat('[coffee]', bold, data.toString())
+  child.on 'error', (err) -> throw err
+  child.on 'close', (code, signal) ->
+    if code is 0 then echo '[cake]', green, 'Compilation successful'
+    else echo '[cake]', yellow, 'Compilation unsuccessful'
+    
+## Standard build - Transpile all files in project_root/src/*coffeeExt to project_root/lib/appName.js with brunch
+task 'build', "Transpile all files in #{process.cwd()}/#{src}/*#{coffeeExt} to #{process.cwd()}/#{lib}/#{appName}.js with brunch", (options) ->
+  args = processOptions(options)
+  echo '[cake]', magenta, 'Starting the brunch build system'
+  child = spawn 'brunch', [args.watch ? 'build'], { detatched: false }
+  child.stderr.on 'data', (data) ->
+    process.stderr.write msgFormat('[stderr]', red, data.toString())
+  child.stdout.on 'data', (data) ->
+    process.stdout.write msgFormat('[brunch]', bold, data.toString())
+  child.on 'error', (err) -> throw err
+  child.on 'close', (code, signal) ->
+    if code is 0 then echo '[cake]', green, 'Compilation successful'
+    else echo '[cake]', yellow, 'Compilation unsuccessful'
 
-# Joined build - Transcompile and join all files in #{src}/*#{coffeeExt} to #{lib}/#{appName}.js
-task 'join', "Transcompile and join all files in #{src}/*#{coffeeExt} to #{lib}/#{appName}.js", (options) ->
-  srcFiles = fs.readdirSync "#{src}"
-  catFile = joinFiles(srcFiles)
-  defaultArgs = ['--compile', '--output', "#{lib}", catFile]
-  compile compileOptions(options).concat(defaultArgs), 'Joined'
-  
-# Minify the unified #{lib}/#{appName}.js file to #{lib}/#{appName}#{minSuffix}.js
-task 'minify', "Minify the unified #{lib}/#{appName}.js file to #{lib}/#{appName}#{minSuffix}.js", ->
-  exec "uglifyjs #{lib}/#{appName}.js -c -m --output #{lib}/#{appName}#{minSuffix}.js", (err, stdout, stderr) ->
-    throw err if err
-    echo stdout + stderr, red
-  echo "Minified #{lib}/#{appName}.js into #{lib}/#{appName}#{minSuffix}.js", green, "\nExiting."
+# Minify project_root/lib/appName.js to project_root/lib/appName-minSuffix.js
+task 'minify', "Minify #{process.cwd()}/#{lib}/#{appName}.js to #{process.cwd()}/#{lib}/#{appName}-#{minSuffix}.js", (options) ->
+  args = processOptions(options)
+  echo '[cake]', magenta, 'Starting uglifyjs'
+  child = spawn 'uglifyjs', ["#{lib}/#{appName}.js", '-c', '-m']
+  child.stderr.on 'data', (data) ->
+    process.stderr.write msgFormat('[stderr]', red, data.toString())
+  child.stdout.on 'data', (data) ->
+    fs.writeFileSync("#{lib}/#{appName}#{args.versioned ? '-'}#{minSuffix}.js", data.toString(), 'utf8');
+  child.on 'error', (err) -> throw err
+  child.on 'close', (code, signal) ->
+    if code is 0
+      echo '[cake]', green, "Minified #{lib}/#{appName}.js into #{lib}/#{appName}#{args.versioned ? '-'}#{minSuffix}.js"
+    else echo '[cake]', yellow, 'Minification unsuccessful'
