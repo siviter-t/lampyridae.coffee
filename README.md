@@ -9,7 +9,7 @@
 > bioluminescence during twilight to attract mates or prey. Fireflies produce a "cold light",
 > with no infrared or ultraviolet frequencies.
 
-<span style="margin: -0.5em 0 0; float: right;">
+<span style="margin: -0.5em 0 0; align: right;">
 — <a href="https://en.wikipedia.org/wiki/Firefly">Wikipedia</a>, the free encyclopedia. 
 </span>  
 
