@@ -25,7 +25,7 @@ do () ->
       err.name = 'FatalError'
       throw err
 
-# "use strict"
+"use strict"
 
 ### Config ###
 require 'config'
