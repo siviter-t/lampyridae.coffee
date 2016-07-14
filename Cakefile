@@ -28,7 +28,7 @@ unless process.env.NODE_DISABLE_COLORS
   magenta   = '\x1B[0;35m'
   cyan      = '\x1B[0;36m'
   white     = '\x1B[0;37m'
-  rese      = '\x1B[0m'
+  reset     = '\x1B[0m'
 
 ## Message format
 msgFormat = (message, format = '', extra = '') -> "#{format}#{message}#{reset} #{extra}"
@@ -38,10 +38,10 @@ echo = (message, format = '', extra = '') -> console.log msgFormat(message, form
 
 ## Cakefile options
 # option '-b', '--bare', 'Compile without a top-level function wrapper'
-option '-o', '--output', 'Where to output the compiled files (compile)'
+option '-o', '--output [DIR]', 'Where to output the compiled files (compile)'
 option '-s', '--source [DIR]', 'Where to read the target files (compile)'
 option '-v', '--versioned', 'Append package version to the minified file (minify)'
-option '-w', '--watch [DIR]', 'Watch the source files and rebuild if changed (compile|build)'
+option '-w', '--watch', 'Watch the source files and rebuild if changed (compile|build)'
 
 processOptions = (options) ->
   args = {}
