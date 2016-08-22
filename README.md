@@ -9,8 +9,8 @@
 > bioluminescence during twilight to attract mates or prey. Fireflies produce a "cold light",
 > with no infrared or ultraviolet frequencies.
 > <p align="right">
-— <a href="https://en.wikipedia.org/wiki/Firefly">Wikipedia</a>, the free encyclopedia. 
-</p>  
+> — <a href="https://en.wikipedia.org/wiki/Firefly">Wikipedia</a>, the free encyclopedia.
+> </p>  
 
 Lampyridae.coffee is a lightweight CoffeeScript framework that can be used to produce simple 
 two-dimensional particle effects with the canvas DOM element.
