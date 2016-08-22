@@ -10,11 +10,11 @@ pkg     = require './package.json'
 
 ##  Application settings
 appName   = pkg.name.replace(/\.[^/.]+$/, "")
-src       = 'src'              # Source directory - relative to Cakefile
-build     = 'build'            # Where to mirror the source directory for std builds
-lib       = 'lib'              # Where to put joined and minified versions of the app
-coffeeExt = '.coffee'          # Extension used for CoffeeScripts files
-minSuffix = 'min'             # Notation used to indicated a minified .js file
+src       = pkg.directories.src     # Source directory - relative to Cakefile
+build     = pkg.directories.build   # Where to mirror the source directory for std builds
+lib       = pkg.directories.lib     # Where to put joined and minified versions of the app
+coffeeExt = '.coffee'               # Extension used for CoffeeScripts files
+minSuffix = 'min'                   # Notation used to indicated a minified .js file
 
 ## ANSI Terminal Colours
 unless process.env.NODE_DISABLE_COLORS
@@ -68,8 +68,8 @@ task 'compile', "Transpile all files in the present working directory: #{process
     if code is 0 then echo '[cake]', green, 'Compilation successful'
     else echo '[cake]', yellow, 'Compilation unsuccessful'
     
-## Standard build - Transpile all files in project_root/src/*coffeeExt to project_root/lib/appName.js with brunch
-task 'build', "Transpile all files in #{process.cwd()}/#{src}/*#{coffeeExt} to #{process.cwd()}/#{lib}/#{appName}.js with brunch", (options) ->
+## Standard build - Transpile all files in project_root/src/*coffeeExt to project_root/build/appName.js with brunch
+task 'build', "Transpile all files in #{process.cwd()}/#{src}/*#{coffeeExt} to #{process.cwd()}/#{build}/#{appName}.js with brunch", (options) ->
   args = processOptions(options)
   echo '[cake]', magenta, 'Starting the brunch build system'
   child = spawn 'brunch', [args.watch ? 'build'], { detatched: false }
@@ -82,11 +82,11 @@ task 'build', "Transpile all files in #{process.cwd()}/#{src}/*#{coffeeExt} to #
     if code is 0 then echo '[cake]', green, 'Compilation successful'
     else echo '[cake]', yellow, 'Compilation unsuccessful'
 
-# Minify project_root/lib/appName.js to project_root/lib/appName-minSuffix.js
-task 'minify', "Minify #{process.cwd()}/#{lib}/#{appName}.js to #{process.cwd()}/#{lib}/#{appName}-#{minSuffix}.js", (options) ->
+# Minify project_root/build/appName.js to project_root/lib/appName-minSuffix.js
+task 'minify', "Minify #{process.cwd()}/#{build}/#{appName}.js to #{process.cwd()}/#{lib}/#{appName}-#{minSuffix}.js", (options) ->
   args = processOptions(options)
   echo '[cake]', magenta, 'Starting uglifyjs'
-  child = spawn 'uglifyjs', ["#{lib}/#{appName}.js", '-c', '-m']
+  child = spawn 'uglifyjs', ["#{build}/#{appName}.js", '-c', '-m']
   child.stderr.on 'data', (data) ->
     process.stderr.write msgFormat('[stderr]', red, data.toString())
   child.stdout.on 'data', (data) ->
@@ -94,5 +94,5 @@ task 'minify', "Minify #{process.cwd()}/#{lib}/#{appName}.js to #{process.cwd()}
   child.on 'error', (err) -> throw err
   child.on 'close', (code, signal) ->
     if code is 0
-      echo '[cake]', green, "Minified #{lib}/#{appName}.js into #{lib}/#{appName}#{args.versioned ? '-'}#{minSuffix}.js"
+      echo '[cake]', green, "Minified #{build}/#{appName}.js into #{lib}/#{appName}#{args.versioned ? '-'}#{minSuffix}.js"
     else echo '[cake]', yellow, 'Minification unsuccessful'

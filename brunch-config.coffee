@@ -1,9 +1,8 @@
-pkg = require './package.json'
-name = pkg.name.replace(/\.[^/.]+$/, "")
-version = pkg.version
-output = 'lib'
-src = 'src'
-test = 'test'
+pkg    = require './package.json'
+name   = pkg.name.replace(/\.[^/.]+$/, "")
+output = pkg.directories.build
+src    = pkg.directories.src
+test   = pkg.directories.test
 
 module.exports = config:
   paths:
