@@ -19,7 +19,7 @@
     Lampyridae.bugSpeedMax = 15;
     Lampyridae.bugSpeedMin = 5;
     Lampyridae.bugTurningAngle = 0.2 * Math.PI;
-    numOfBugs = 75;
+    numOfBugs = 50;
     bugs = [];
     createBugs = function() {
       var bug, i, j, ref;

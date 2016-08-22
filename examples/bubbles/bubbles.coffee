@@ -21,7 +21,7 @@ $(document).ready ->
    Lampyridae.bugSpeedMin = 5
    Lampyridae.bugTurningAngle = 0.2 * Math.PI
    
-   numOfBugs = 75
+   numOfBugs = 50
    bugs = []
    
    createBugs = () ->
