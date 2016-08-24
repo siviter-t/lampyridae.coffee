@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <title>Lampyridae Test Page</title>
+    <link rel="stylesheet" href="./../node_modules/mocha/mocha.css"/>
+    <style>
+      body { background: #000; }
+      #mocha {
+        margin: 0; padding: 9px; position: absolute; top: 0; right: 0; opacity: 0.7;
+        background: #fff; border: 2px solid #ddd; box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.75);
+      }
+      #mocha-stats { position: static; background: #fff; }
+      #mocha-report { display: none; }
+      #mocha:hover #mocha-report { display: block; }
+      #mocha:hover { width: 90%; height: 90%; opacity: 0.9; overflow-y: scroll; }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="./../build/lampyridae.js"></script>
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <script src="./../node_modules/mocha/mocha.js"></script>
+    <script src="./../node_modules/chai/chai.js"></script>
+    <script>
+      mocha.ui('bdd');
+      mocha.reporter('html');
+      var expect = chai.expect;
+    </script>
+    <script src="./tests.js"></script>
+    <script src="./testExample.js"></script>
+    <script>
+      if (window.mochaPhantomJS) { mochaPhantomJS.run(); } else { mocha.run(); }
+    </script>
+  </body>
+</html>
