@@ -11,10 +11,15 @@ module.exports = config:
   
   files:
     javascripts:
-      joinTo: "#{name}.js"
+      joinTo:
+        "#{name}.js": /^src/
+        "tests.js": /^test/
   
   modules:
-    autoRequire: "#{name}.js": ["#{name}"]
+    autoRequire:
+      "#{name}.js": ["#{name}"]
+      "tests.js": ["#{test}/tests"]
+
     nameCleaner: (path) => path.replace(/^src\//, '')
   
   plugins:
