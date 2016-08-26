@@ -1,21 +1,13 @@
-describe 'Lampyridae Tests', ->
-  it 'A DOM should exist', ->
-    expect(document).to.not.equal null
-    return
-  
-  it 'and it should have a body tag', ->
-    expect(document.body).to.not.equal null
-    return
+# @file tests.coffee
+# @Copyright (c) 2016 Taylor Siviter
+# This source code is licensed under the MIT License.
+# For full information, see the LICENSE file in the project root.
 
+# Introductory tests to check that a dom of some kind exists...
+describe 'Lampyridae Tests', ->
+  it 'A DOM should exist', -> should.exist(document)
+  it 'and it should have a body tag', -> should.exist(document.body)
+
+# Once the document is ready, execute the unit tests...
 $(document).ready ->
-  describe 'Canvas Tests', ->
-    
-    existingCanvas = $('#world')
-    
-    it 'A premade canvas tag should already exist', ->
-      expect(existingCanvas).to.not.equal null
-      return
-    
-    it 'and it should be a child of the body', ->
-      expect(existingCanvas.parent()[0]).to.equal document.body
-      return
+  require './testCanvas'
