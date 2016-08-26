@@ -23,10 +23,9 @@
     <script>
       mocha.ui('bdd');
       mocha.reporter('html');
-      var expect = chai.expect;
+      var should = chai.should();
     </script>
-    <script src="./tests.js"></script>
-    <script src="./testExample.js"></script>
+    <script src="../build/tests.js"></script>
     <script>
       if (window.mochaPhantomJS) { mochaPhantomJS.run(); } else { mocha.run(); }
     </script>
