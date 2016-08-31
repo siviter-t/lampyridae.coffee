@@ -23,6 +23,15 @@ describe 'Lampyridae introductory tests', ->
   it 'Lampyridae should be loaded and accessible', -> should.exist(window.Lampyridae)
   it 'jQuery shouldn\'t be loaded or needed', -> should.not.exist(window.jQuery)
 
-# Once the document is ready, execute the unit tests...
+# Determining the current test runner
+testFile = location.pathname.split("/").slice(-1).toString()
+console.log "Current test runner: #{testFile}"
+
+# Once the document is ready, start the relevant tests...
 $(document).ready ->
-  require './testCanvas'
+  if testFile == "_testUnits.html"
+    require './testCanvas'
+  else if testFile == "_testExample.html"  
+    require './testExample'
+  else
+    throw new Error "No tests have been configured for the current test runner"
