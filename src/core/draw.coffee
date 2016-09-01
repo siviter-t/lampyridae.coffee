@@ -13,7 +13,7 @@ class Lampyridae.Draw
          throw new Error "Lampyridae: Draw requires an instance of Canvas"
       
       @ctx = @canvas.context
-      console.log "Lampyridae: Initialised 2D drawing object for \##{@canvas.id} "
+      console.log "Lampyridae: Initialised 2D drawing object for \##{@canvas.id()} "
    
    # Utility methods #
    
