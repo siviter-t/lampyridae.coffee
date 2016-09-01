@@ -8,23 +8,38 @@ class Lampyridae.Canvas
   #
   # @param id [String] Name of the #id selector for the canvas element
   # @param parent [String] Name of the element to attach the canvas to (defaults to body)
-  # @todo Add options + add selection of an exisiting canvas
   ###
   constructor: (@id, @parent = 'body') ->
     if arguments.length < 1
       throw new Error "Lampyridae: Canvas requires an \#id selector"
     
-    @element = document.createElement 'canvas'
+    @findOrMakeCanvas()
     @context = @element.getContext '2d'
-    @setID()
-    @append()
     @resizeToParent()
     $(window).resize => @resizeToParent()
     @draw = new Lampyridae.Draw @
+  
+  findOrMakeCanvas: (id = @id, parent = @parent) ->
+    @element = document.getElementById id
+    if @element? then @parent = @element.parentElement
+    else
+      @element = document.createElement 'canvas'
+      if parent == 'body' then @parent = document.body
+      else @parent = document.getElementById parent
+      @setId()
+      @append()
     
+  append: () ->
+    @parent.appendChild @element
+    console.log "Lampyridae: Appended \##{@id} to
+                 #{@parent.nodeName.toLowerCase()}\##{@parent.id}"
+  
+  id: () -> return @id
   width: () -> return $(@element).width()
   height: () -> return $(@element).height()
   area: () -> return $(@element).width() * $(@element).height() 
+  
+  setId: (id = @id) -> @id = id; @element.id = id; return id
   
   setWidth: (width = $(@parent).innerWidth() ) -> 
     $(@element).width(width).attr('width', width)
@@ -34,12 +49,6 @@ class Lampyridae.Canvas
     $(@element).height(height).attr('height', height)
     return height
     
-  setID: (@id = @id) -> $(@element).attr('id', @id); return @id
-    
-  append: (@parent = @parent) ->
-    $(@parent).append @element
-    console.log "Lampyridae: Appended \##{@id} to #{@parent}"
-  
   resizeToParent: () ->
     @setWidth()
     @setHeight()
