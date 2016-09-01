@@ -25,10 +25,10 @@ describe 'Lampyridae introductory tests', ->
 
 # Determining the current test runner
 testFile = location.pathname.split("/").slice(-1).toString()
-console.log "Current test runner: #{testFile}"
+console.log "Test runner: #{testFile}"
 
 # Once the document is ready, start the relevant tests...
-$(document).ready ->
+document.addEventListener 'DOMContentLoaded', () ->
   if testFile == "_testUnits.html"
     require './testCanvas'
   else if testFile == "_testExample.html"  
