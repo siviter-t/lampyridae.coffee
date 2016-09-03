@@ -4,7 +4,7 @@
 # For full information, see the LICENSE file in the project root.
 
 class Lampyridae.Canvas
-  ### Construct and manage a canvas element.
+  ### Construct and manage a Canvas object.
   #
   # @param id [String] Name of the #id selector for the canvas element
   # @param parent [String] Name of the element to attach the canvas to (defaults to body)
@@ -19,6 +19,13 @@ class Lampyridae.Canvas
     window.addEventListener 'resize', => @size()
     @draw = new Lampyridae.Draw @
   
+  ### Checks whether the given id selector exists; creating or registering accordingly.
+  # If it does, it registers the current parent element for this object.
+  # If it does not, it creates one under the given parent element.
+  #
+  # @param id [String] Name of the #id selector for the canvas element
+  # @param parent [String] Name of the element to attach the canvas to (defaults to body)
+  ###
   findOrMakeCanvas: (id, parent = @parent) ->
     @element = document.getElementById id
     if @element? then @parent = @element.parentElement
@@ -27,16 +34,18 @@ class Lampyridae.Canvas
       if parent == 'body' then @parent = document.body
       else @parent = document.getElementById parent
       @id id
-      @append()
-    
-  append: () ->
+      @appendCanvas()
+  
+  ### Appends a generated <canvas> tag to the DOM - if required.
+  ###
+  appendCanvas: () ->
     @parent.appendChild @element
     console.log "Lampyridae: Appended \##{@element.id} to
                  #{@parent.nodeName.toLowerCase()}\##{@parent.id}"
   
   # Access/Set/Get methods # 
   
-  ### Return or set the id selector of the canvas
+  ### Return or set the id selector of the canvas.
   #
   # @param id [String] The id string to set (optional; if needed)
   # @return [String] The current id selector of the canvas
@@ -45,7 +54,7 @@ class Lampyridae.Canvas
     if id? then @element.id = id
     return @element.id
   
-  ### Return or set the width of the canvas
+  ### Return or set the width of the canvas.
   #
   # @param width [Number] The width to set (optional; if needed)
   # @return [Number] The current width of the canvas
@@ -54,7 +63,7 @@ class Lampyridae.Canvas
     if width? then @element.setAttribute 'width', width
     return @element.clientWidth
   
-  ### Return or set the height of the canvas
+  ### Return or set the height of the canvas.
   #
   # @param height [Number] The width to set (optional; if needed)
   # @return [Number] The current height of the canvas
@@ -63,7 +72,8 @@ class Lampyridae.Canvas
     if height? then @element.setAttribute 'height', height
     return @element.clientHeight
   
-  ### Set the overall size of the canvas. Defaults to its parent size
+  ### Set the overall size of the canvas.
+  # Defaults to its current parent element's size.
   #
   # @param width [Number] The width to set (optional)
   # @param height [Number] The width to set (optional)
@@ -71,7 +81,7 @@ class Lampyridae.Canvas
   size: (width = @parent.clientWidth, height = @parent.clientHeight) ->
     @width width; @height height
   
-  ### Returns the current area of the canvas
+  ### Returns the current area of the canvas.
   #
   # @return [Number] The current area of the canvas
   ###
@@ -79,6 +89,10 @@ class Lampyridae.Canvas
   
   # Helper Methods #
   
+  ### Has the Canvas object acquired the 2d context (CanvasRenderingContext2D) api?
+  #
+  # @return [Bool] True if it does, false if it does not
+  ###
   has2DContext: () ->
     if @context? then return @context.constructor == CanvasRenderingContext2D
     else return false
