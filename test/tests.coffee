@@ -15,6 +15,9 @@ window.removeElementById = (id) ->
   element = document.getElementById id
   element.parentNode.removeChild element
 
+# Helpful delay function
+window.delay = (time, f) -> setTimeout f, time
+
 # Introductory tests to check that a dom of some kind exists and that a version of the
 # Lampyridae development library is loaded etc...
 describe 'Lampyridae introductory tests', ->
