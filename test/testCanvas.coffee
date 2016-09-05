@@ -68,3 +68,9 @@ describe 'Canvas object unit test', ->
       canvas.element.should.equal document.getElementById('world')
     
     it 'and should have a drawable 2d context', -> canvas.has2DContext().should.equal true
+    
+    it '<canvas> should have its parent\'s width', ->
+      canvas.width().should.equal canvas.parent.clientWidth
+    
+    it '<canvas> should have its parent\'s height', ->
+      canvas.height().should.equal canvas.parent.clientHeight
