@@ -25,18 +25,18 @@ class Lampyridae.Draw
    # @param w [Number] Final position along x-axis. 
    # @param h [Number] Final position along y-axis.
    ###
-   clear: (x, y, w, h) -> @ctx.clearRect x, y, w, h
-   clear: () -> @ctx.clearRect 0, 0, @canvas.width(), @canvas.height()
+   clear: (x, y, w, h) => @ctx.clearRect x, y, w, h
+   clear: () => @ctx.clearRect 0, 0, @canvas.width(), @canvas.height()
    
    ### Reset the global alpha to opaque. ###
-   resetGlobalAlpha: () -> @ctx.globalAlpha = 1.0
+   resetGlobalAlpha: () => @ctx.globalAlpha = 1.0
    
    ### Set the global alpha to the given argument.
    # If an invalid argument is given this method will instead reset the alpha.
    #
    # @param a [Number] Alpha value between [0, 1]
    ###
-   setGlobalAlpha: (a) ->
+   setGlobalAlpha: (a) =>
       if 0.0 <= a < 1.0 then @ctx.globalAlpha = a
       else @resetGlobalAlpha()
    
@@ -46,19 +46,19 @@ class Lampyridae.Draw
    #
    # @param callback [Function] Drawing method(s) to encapsulated
    ###
-   beginClose: (callback) ->
+   beginClose: (callback) =>
       @ctx.beginPath()
       callback?()
       @ctx.closePath()
-   begin: () -> @ctx.beginPath()
-   end: () -> @ctx.closePath()
+   begin: () => @ctx.beginPath()
+   end: () => @ctx.closePath()
    
    ### Define a stroke on the Canvas instance.
    #
    # @param width [Number] Width of the stroke
    # @param colour [String] Colour of the stroke
    ###
-   stroke: (width, colour) ->
+   stroke: (width, colour) =>
       @ctx.strokeStyle = colour
       @ctx.lineWidth = width
       @ctx.stroke()
@@ -67,7 +67,7 @@ class Lampyridae.Draw
    #
    # @param colour [String] Colour of the fill
    ###
-   fill: (colour) ->
+   fill: (colour) =>
       @ctx.fillStyle = colour
       @ctx.fill()
    
@@ -78,7 +78,7 @@ class Lampyridae.Draw
    # @param x [Number] Distance to offset the shadow along the x-axis. Default: 0
    # @param y [Number] Distance to offset the shadow along the y-axis. Default: 0
    ###
-   glow: (radius, colour, x = 0, y = 0) ->
+   glow: (radius, colour, x = 0, y = 0) =>
       @canvas.context.shadowOffsetX = x
       @canvas.context.shadowOffsetY = y
       @canvas.context.shadowColor = colour
@@ -94,7 +94,7 @@ class Lampyridae.Draw
    # @param start [Number] Starting angle of arc in radians from the x-axis. Default: 0
    # @param clockwise [Boolean] true = clockwise, false = anticlockwise. Default: false
    ###
-   arc: (x, y, radius, end, start = 0, clockwise = false) ->
+   arc: (x, y, radius, end, start = 0, clockwise = false) =>
       @ctx.arc x, y, radius, start, end, !clockwise
    
    ### Draw a circle onto the Canvas instance.
@@ -103,7 +103,7 @@ class Lampyridae.Draw
    # @param y [Number] Position along y-axis to draw around
    # @param radius [Number] Radius of the circle
    ###
-   circle: (x, y, radius) -> @arc x, y, radius, Lampyridae.PI2
+   circle: (x, y, radius) => @arc x, y, radius, Lampyridae.PI2
    
 # end class Lampyridae.Canvas.Draw
 
