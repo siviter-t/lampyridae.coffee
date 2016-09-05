@@ -36,8 +36,7 @@ class Lampyridae.Canvas
       @id id
       @appendCanvas()
   
-  ### Appends a generated <canvas> tag to the DOM - if required.
-  ###
+  ### Appends a generated <canvas> tag to the DOM - if required. ###
   appendCanvas: () ->
     @parent.appendChild @element
     console.log "Lampyridae: Appended \##{@element.id} to
@@ -86,6 +85,67 @@ class Lampyridae.Canvas
   # @return [Number] The current area of the canvas
   ###
   area: () -> return @width() * @height()
+  
+  # Animation and update methods #
+  
+  _updateStack: [] # Stores a stack of functions to call every update.
+  _stopAnim: false
+  _pauseAnim: false
+  
+  ### Adds a function to the update stack.
+  #
+  # @f [Function] Function to call on Canvas.update
+  ###
+  addUpdate: (f) =>
+    if toString.call(f) isnt '[object Function]'
+      throw new Error "Lampyridae: Canvas.addUpdate requires a function"
+    @_updateStack.push f
+  
+  ### Removes the top function from the update stack.
+  #
+  # @return [Bool] True if the top function has been removed; false if there's nothing left
+  ###
+  popUpdate: () =>
+    if @_updateStack.length > 0
+      @_updateStack.pop()
+      return true
+    return false
+  
+  ### Removes the first instance of the function from the top of the update stack.
+  # 
+  # @f [Function] Function to stop calling on Canvas.update
+  # @return [Bool] True if it has been found and removed; false otherwise
+  # @note Iterates backwards through the update stack!
+  ###
+  removeUpdate: (f) =>
+    if toString.call(f) isnt '[object Function]'
+      throw new Error "Lampyridae: Canvas.addUpdate requires a function"
+    for i in [@_updateStack.length - 1..0] by -1
+      if @_updateStack[i] == f
+        @_updateStack.splice(i, 1)
+        return true
+    return false
+    
+  ### Iterates through the update stack and calls the update functions. ###
+  update: () => i() for i in @_updateStack
+  
+  ### Animates the canvas!
+  # Uses the functions in the update stack to add magic to the canvas.
+  #
+  # @note is controlled by the pause and stopAnimation()
+  ###
+  animate: () =>
+    unless @_stopAnim
+      unless @_pauseAnim then @update()
+      requestAnimationFrame @animate
+    else
+      @_stopAnim = false; @_pauseAnim = false
+  
+  ### Toggles the paused state of the canvas animation. ###
+  pause: () => @_pauseAnim = !@_pauseAnim
+  
+  ### Stops the animation outright. ### 
+  stop: () => @_stopAnim = true
   
   # Helper Methods #
   
