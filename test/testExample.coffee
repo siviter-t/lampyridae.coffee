@@ -22,23 +22,21 @@ describe 'Testing an example', ->
          bugs.push bug
       return
       
-    animate = () ->
-      canvas.draw.clear()
-      update()
-      requestAnimationFrame animate
-      return
-    
     update = () ->
       bugs[i].update() for i in [0...numOfBugs]
       return
     
     createBugs()
-    animate()
+    canvas.addUpdate canvas.draw.clear
+    canvas.addUpdate update
+    canvas.animate()
+    delay 3000, -> canvas.removeUpdate canvas.draw.clear
+    delay 5000, -> canvas.pause()
+    delay 7000, -> canvas.pause()
     done()
   
-  it 'A <canvas> tag should exist', ->
-    should.exist document.getElementById('world')
-    
+  it 'A <canvas> tag should exist', -> should.exist document.getElementById('world')
+  
   it 'A Canvas object should be attached to the <canvas> tag', ->
     canvas.element.should.equal document.getElementById('world')
   
