@@ -1,4 +1,4 @@
-# @file bug.coffee
+# @file firefly.coffee
 # @Copyright (c) 2016 Taylor Siviter
 # This source code is licensed under the MIT License.
 # For full information, see the LICENSE file in the project root.
@@ -6,8 +6,8 @@
 require 'util/hslToRgb'
 require 'util/rand'
 
-class Lampyridae.Bug extends Lampyridae.Particle
-   ### Construct and manage a Lampyridae bug 'particle'.
+class Lampyridae.Firefly extends Lampyridae.Particle
+   ### Construct and manage a Lampyridae firefly 'particle'.
    #
    # @param canvas [Object] Instance of Lampyridae.Canvas to attach the bug to
    # @param x [Number] Position of the bug along the x-axis
@@ -19,7 +19,7 @@ class Lampyridae.Bug extends Lampyridae.Particle
    ###
    constructor: (canvas, x, y, t, v, r, c, a) ->
       unless arguments.length > 0
-         throw new Error "Lampyridae: Bug requires a valid Canvas instance to be attached to"
+         throw new Error "Lampyridae: Firefly requires a valid Canvas instance to be attached to"
       x ?= Lampyridae.rand 0, canvas.width() 
       y ?= Lampyridae.rand 0, canvas.height()
       v ?= Lampyridae.rand @speedMin, @speedMax
@@ -63,6 +63,6 @@ class Lampyridae.Bug extends Lampyridae.Particle
       @canvas.draw.circle @x, @y, @r
       @canvas.draw.fill @colour
       @canvas.draw.end()
-# end class Lampyridae.Bug
+# end class Lampyridae.Firefly
 
-module.exports = Lampyridae.Bug
+module.exports = Lampyridae.Firefly
