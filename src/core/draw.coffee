@@ -103,7 +103,7 @@ class Lampyridae.Draw
    # @param y [Number] Position along y-axis to draw around
    # @param radius [Number] Radius of the circle
    ###
-   circle: (x, y, radius) => @arc x, y, radius, Lampyridae.PI2
+   circle: (x, y, radius) => @arc x, y, radius, Lampyridae.PIx2
    
 # end class Lampyridae.Canvas.Draw
 

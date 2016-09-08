@@ -3,8 +3,6 @@
 # This source code is licensed under the MIT License.
 # For full information, see the LICENSE file in the project root.
 
-require 'lampyridae'
-require 'particle/particle'
 require 'util/hslToRgb'
 require 'util/rand'
 
@@ -24,16 +22,30 @@ class Lampyridae.Bug extends Lampyridae.Particle
          throw new Error "Lampyridae: Bug requires a valid Canvas instance to be attached to"
       x ?= Lampyridae.rand 0, canvas.width() 
       y ?= Lampyridae.rand 0, canvas.height()
-      v ?= Lampyridae.rand Lampyridae.bugSpeedMin, Lampyridae.bugSpeedMax
-      t ?= Lampyridae.rand 0.0, Lampyridae.PI2
-      r ?= Lampyridae.rand Lampyridae.bugRadiusMin, Lampyridae.bugRadiusMax
-      h = Lampyridae.rand Lampyridae.bugHueMin, Lampyridae.bugHueMax
-      c ?= Lampyridae.hslToRgb h, Lampyridae.bugSaturation, Lampyridae.bugLightness
+      v ?= Lampyridae.rand @speedMin, @speedMax
+      t ?= Lampyridae.rand 0.0, Lampyridae.PIx2
+      r ?= Lampyridae.rand @radiusMin, @radiusMax
+      h = Lampyridae.rand @hueMin, @hueMax
+      c ?= Lampyridae.hslToRgb h, @saturation, @lightness
       c = "rgb(#{c[0]}, #{c[1]}, #{c[2]})"
-      a ?= Lampyridae.bugOpacity
+      a ?= @opacity
       super(canvas, x, y, t, v, r, {colour: c, alpha: a})
    
-   randomTurn: () -> @turn Lampyridae.bugTurningAngle * (2.0 * Math.random() - 1.0)
+   ### Firefly class prototype parameters.
+   # Can be set by the user to whatever they wish; e.g. Lampyridae.Bug::radiusMax = 50, etc.
+   ###
+   speedMin: 1
+   speedMax: 7
+   radiusMax: 3.0
+   radiusMin: 0.5
+   turningAngle: 0.1 * Math.PI
+   hueMax: 102.72 # Light green colour
+   hueMin: 65.28 # Yellowy colour
+   saturation: '100%'
+   lightness: '50%'
+   opacity: 0.8
+   
+   randomTurn: () -> @turn @turningAngle * (2.0 * Math.random() - 1.0)
    
    # Todo: Add option for periodic or hard-wall boundaries
    fly: () ->
