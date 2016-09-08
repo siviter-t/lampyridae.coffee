@@ -150,6 +150,13 @@ class Lampyridae.Canvas
   
   # Helper Methods #
   
+  ### Schedule a functon to call after a specified time
+  #
+  # @param time [Number] Time to wait in milliseconds
+  # @param f [Function] Function to call after time has expired
+  ###
+  schedule: (time, f) -> setTimeout f, time
+  
   ### Has the Canvas object acquired the 2d context (CanvasRenderingContext2D) api?
   #
   # @return [Bool] True if it does, false if it does not
