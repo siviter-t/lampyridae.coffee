@@ -13,6 +13,11 @@ class Lampyridae.Canvas
     if arguments.length < 1
       throw new Error "Lampyridae: Canvas requires an \#id selector"
     
+    # Control variables
+    @_updateStack = [] # Stores a stack of functions to call every update
+    @_stopAnim = false
+    @_pauseAnim = false
+    
     @findOrMakeCanvas(id)
     @context = @element.getContext '2d'
     @size()
@@ -87,10 +92,6 @@ class Lampyridae.Canvas
   area: () -> return @width() * @height()
   
   # Animation and update methods #
-  
-  _updateStack: [] # Stores a stack of functions to call every update.
-  _stopAnim: false
-  _pauseAnim: false
   
   ### Adds a function to the update stack.
   #
