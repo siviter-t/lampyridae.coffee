@@ -27,9 +27,8 @@ do () ->
 
 "use strict"
 
-### Config ###
+### Default Requirements ###
 require 'config'
-
-### Core classes ###
 require 'core/canvas'
 require 'core/draw'
+require 'particle/particle'
