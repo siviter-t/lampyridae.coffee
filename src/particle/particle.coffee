@@ -40,11 +40,24 @@ class Lampyridae.Particle
         when "periodic" then @bounded = true; @periodic = true
         else console.warn "Lampyridae: #{options.bound} is not valid bound. Defaulting to 'none'"
   
+  # Movement methods #
+  
+  ### Velocity component in the x-direction. ###
   vx: () -> return @v * Math.cos(@t)
+
+  ### Velocity component in the y-direction. ###
   vy: () -> return @v * Math.sin(@t)
+  
+  ### Turn the particle.
+  #
+  # @param angle [Number] Number of radians to turn anticlockwise from the x-axis
+  ###
   turn: (angle = 0.0) -> @t += angle
+  
+  ### Turn the particle around. ###
   turnAround: () -> @turn Math.PI
   
+  ### Move the particle using its velocity and this applications defined time step. ###
   move: () ->
     @x += Lampyridae.timestep * @vx()
     @y += Lampyridae.timestep * @vy()
@@ -73,7 +86,7 @@ class Lampyridae.Particle
   ###
   isOutsideCanvas: () -> return @isOutsideCanvasX() or @isOutsideCanvasY()
   
-  ### Act as if the boundary of the canvas is 'hard-walled' 
+  ### Act as if the boundary of the canvas is 'hard-walled'.
   #
   # @return [Bool] True if action has been made; false otherwise
   ###
@@ -84,7 +97,7 @@ class Lampyridae.Particle
       return true
     return false
 
-  ### Act as if the boundary of the canvas is 'periodic' 
+  ### Act as if the boundary of the canvas is 'periodic'.
   #
   # @return [Bool] True if action has been made; false otherwise
   ###
@@ -98,7 +111,7 @@ class Lampyridae.Particle
       result = true
     return result
   
-  ### Check and act if there are bounds applied
+  ### Check and act if there are bounds applied.
   #
   # @return [Bool] True if action has been made; false otherwise
   ###
@@ -107,11 +120,13 @@ class Lampyridae.Particle
     if @bounded then return @applyHardBounds()
     return false
   
+  ### Simple particle update method. ###
   update: () ->
     @applyBounds()
     @move()
     @draw()
   
+  ### Draw the particle to the screen. ###
   draw: () ->
     @canvas.draw.begin()
     @canvas.draw.circle @x, @y, @r
