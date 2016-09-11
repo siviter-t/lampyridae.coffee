@@ -1,3 +1,4 @@
 */*.map
 build/*
+lib/lampyridae-min.js
 node_modules/
