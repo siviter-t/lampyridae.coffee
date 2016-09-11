@@ -5,34 +5,43 @@
  */
 
 (function() {
-  require('particle/bug');
+  var canvas, createFireflies, fireflies, total, update;
 
-  $(document).ready(function() {
-    var animate, bugs, canvas, createBugs, numOfBugs, update;
-    canvas = new Lampyridae.Canvas('world');
-    Lampyridae.bugSpeedMax = 5;
-    numOfBugs = 25;
-    bugs = [];
-    createBugs = function() {
-      var bug, i, j, ref;
-      for (i = j = 0, ref = numOfBugs; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-        bug = new Lampyridae.Bug(canvas);
-        bugs.push(bug);
-      }
-    };
-    animate = function() {
-      canvas.draw.clear();
-      update();
-      requestAnimationFrame(animate);
-    };
-    update = function() {
-      var i, j, ref;
-      for (i = j = 0, ref = numOfBugs; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-        bugs[i].update();
-      }
-    };
-    createBugs();
-    animate();
-  });
+  require('particle/firefly');
+
+  canvas = new Lampyridae.Canvas('world');
+
+  Lampyridae.Firefly.prototype.speedMax = 5;
+
+  total = 25;
+
+  fireflies = [];
+
+  createFireflies = function() {
+    var firefly, i, j, ref, results;
+    results = [];
+    for (i = j = 0, ref = total; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+      firefly = new Lampyridae.Firefly(canvas);
+      results.push(fireflies.push(firefly));
+    }
+    return results;
+  };
+
+  update = function() {
+    var i, j, ref, results;
+    results = [];
+    for (i = j = 0, ref = total; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+      results.push(fireflies[i].update());
+    }
+    return results;
+  };
+
+  createFireflies();
+
+  canvas.addUpdate(canvas.draw.clear);
+
+  canvas.addUpdate(update);
+
+  canvas.animate();
 
 }).call(this);

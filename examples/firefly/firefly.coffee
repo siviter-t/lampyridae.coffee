@@ -6,33 +6,23 @@
 ###
 # Example usage of lampyridae.coffee
 ###
-require 'particle/bug'
+require 'particle/firefly'
 
-$(document).ready ->
-   canvas = new Lampyridae.Canvas 'world'
-   
-   Lampyridae.bugSpeedMax = 5
-   
-   numOfBugs = 25
-   bugs = []
-   
-   createBugs = () ->
-      for i in [0...numOfBugs]
-         bug = new Lampyridae.Bug canvas
-         bugs.push bug
-      return
-      
-   animate = () ->
-      canvas.draw.clear()
-      update()
-      requestAnimationFrame animate
-      return
-   
-   update = () ->
-      bugs[i].update() for i in [0...numOfBugs]
-      return
-   
-   createBugs()
-   animate()
-   
-   return
+canvas = new Lampyridae.Canvas 'world'
+
+Lampyridae.Firefly::speedMax = 5
+
+total = 25
+fireflies = []
+
+createFireflies = () ->
+  for i in [0...total]
+    firefly = new Lampyridae.Firefly canvas
+    fireflies.push firefly
+
+update = () -> fireflies[i].update() for i in [0...total]
+
+createFireflies()
+canvas.addUpdate canvas.draw.clear
+canvas.addUpdate update
+canvas.animate()
