@@ -5,42 +5,59 @@
  */
 
 (function() {
-  require('particle/bug');
+  var bubbles, canvas, createBubble, total, update;
 
-  $(document).ready(function() {
-    var animate, bugs, canvas, createBugs, numOfBugs, update;
-    canvas = new Lampyridae.Canvas('world');
-    Lampyridae.bugHueMax = 225;
-    Lampyridae.bugHueMin = 180;
-    Lampyridae.bugLightness = '65%';
-    Lampyridae.bugOpacity = 0.15;
-    Lampyridae.bugRadiusMax = 150;
-    Lampyridae.bugRadiusMin = 15;
-    Lampyridae.bugSpeedMax = 15;
-    Lampyridae.bugSpeedMin = 5;
-    Lampyridae.bugTurningAngle = 0.2 * Math.PI;
-    numOfBugs = 50;
-    bugs = [];
-    createBugs = function() {
-      var bug, i, j, ref;
-      for (i = j = 0, ref = numOfBugs; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-        bug = new Lampyridae.Bug(canvas);
-        bugs.push(bug);
-      }
-    };
-    animate = function() {
-      canvas.draw.clear();
-      update();
-      requestAnimationFrame(animate);
-    };
-    update = function() {
-      var i, j, ref;
-      for (i = j = 0, ref = numOfBugs; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-        bugs[i].update();
-      }
-    };
-    createBugs();
-    animate();
-  });
+  require('particle/firefly');
+
+  canvas = new Lampyridae.Canvas('world');
+
+  Lampyridae.Firefly.prototype.hueMax = 225;
+
+  Lampyridae.Firefly.prototype.hueMin = 180;
+
+  Lampyridae.Firefly.prototype.lightness = '65%';
+
+  Lampyridae.Firefly.prototype.opacity = 0.15;
+
+  Lampyridae.Firefly.prototype.radiusMax = 150;
+
+  Lampyridae.Firefly.prototype.radiusMin = 15;
+
+  Lampyridae.Firefly.prototype.speedMax = 15;
+
+  Lampyridae.Firefly.prototype.speedMin = 5;
+
+  Lampyridae.Firefly.prototype.turningAngle = 0.2 * Math.PI;
+
+  total = 50;
+
+  bubbles = [];
+
+  createBubble = function() {
+    var bubble, i, j, ref, results;
+    results = [];
+    for (i = j = 0, ref = total; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+      bubble = new Lampyridae.Firefly(canvas);
+      results.push(bubbles.push(bubble));
+    }
+    return results;
+  };
+
+  update = function() {
+    var i, j, ref, results;
+    results = [];
+    for (i = j = 0, ref = total; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+      results.push(bubbles[i].update());
+    }
+    return results;
+  };
+
+  createBubble();
+
+  canvas.addUpdate(canvas.draw.clear);
+
+  canvas.addUpdate(update);
+
+  canvas.animate();
 
 }).call(this);

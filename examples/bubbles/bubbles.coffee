@@ -6,41 +6,31 @@
 ###
 # Example usage of lampyridae.coffee
 ###
-require 'particle/bug'
+require 'particle/firefly'
 
-$(document).ready ->
-   canvas = new Lampyridae.Canvas 'world'
-   
-   Lampyridae.bugHueMax = 225
-   Lampyridae.bugHueMin = 180
-   Lampyridae.bugLightness = '65%'
-   Lampyridae.bugOpacity = 0.15
-   Lampyridae.bugRadiusMax = 150
-   Lampyridae.bugRadiusMin = 15
-   Lampyridae.bugSpeedMax = 15
-   Lampyridae.bugSpeedMin = 5
-   Lampyridae.bugTurningAngle = 0.2 * Math.PI
-   
-   numOfBugs = 50
-   bugs = []
-   
-   createBugs = () ->
-      for i in [0...numOfBugs]
-         bug = new Lampyridae.Bug canvas
-         bugs.push bug
-      return
-      
-   animate = () ->
-      canvas.draw.clear()
-      update()
-      requestAnimationFrame animate
-      return
-   
-   update = () ->
-      bugs[i].update() for i in [0...numOfBugs]
-      return
-   
-   createBugs()
-   animate()
-   
-   return
+canvas = new Lampyridae.Canvas 'world'
+
+Lampyridae.Firefly::hueMax = 225
+Lampyridae.Firefly::hueMin = 180
+Lampyridae.Firefly::lightness = '65%'
+Lampyridae.Firefly::opacity = 0.15
+Lampyridae.Firefly::radiusMax = 150
+Lampyridae.Firefly::radiusMin = 15
+Lampyridae.Firefly::speedMax = 15
+Lampyridae.Firefly::speedMin = 5
+Lampyridae.Firefly::turningAngle = 0.2 * Math.PI
+
+total = 50
+bubbles = []
+
+createBubble = () ->
+  for i in [0...total]
+    bubble = new Lampyridae.Firefly canvas
+    bubbles.push bubble
+  
+update = () -> bubbles[i].update() for i in [0...total]
+
+createBubble()
+canvas.addUpdate canvas.draw.clear
+canvas.addUpdate update
+canvas.animate()
