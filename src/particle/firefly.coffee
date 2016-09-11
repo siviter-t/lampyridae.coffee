@@ -3,7 +3,7 @@
 # This source code is licensed under the MIT License.
 # For full information, see the LICENSE file in the project root.
 
-require 'util/maths'
+require 'maths/rand'
 require 'util/hslToRgb'
 
 class Lampyridae.Firefly extends Lampyridae.Particle
