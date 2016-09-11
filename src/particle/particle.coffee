@@ -38,6 +38,7 @@ class Lampyridae.Particle
       switch options.bound
         when "hard" then @bounded = true
         when "periodic" then @bounded = true; @periodic = true
+        when "none"
         else console.warn "Lampyridae: #{options.bound} is not valid bound. Defaulting to 'none'"
   
   # Movement methods #
