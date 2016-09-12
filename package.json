@@ -14,7 +14,8 @@
     "build": "cake build",
     "pretest": "npm run build",
     "test": "mocha-phantomjs test/_testUnits.html",
-    "preversion": "npm run test && cake -v minify",
+    "preversion": "npm run test",
+    "version": "cake build && cake -v minify && git add ."
     "patch": "npm version patch -m \"Patch upgrade to %s\"",
     "minor": "npm version minor -m \"Minor upgrade to %s\"",
     "major": "npm version major -m \"Major upgrade to %s\""
