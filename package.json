@@ -2,7 +2,7 @@
   "name": "lampyridae.coffee",
   "version": "0.2.6",
   "description": "A simple suite of particle effects written in CoffeeScript",
-  "main": "lib/lampyridae.js",
+  "main": "lib/lampyridae-0.2.6-min.js",
   "directories": {
     "build": "build",
     "example": "examples",
