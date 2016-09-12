@@ -18,7 +18,8 @@
     "version": "cake build && cake -v minify && git add .",
     "patch": "npm version patch -m \"Patch upgrade to %s\"",
     "minor": "npm version minor -m \"Minor upgrade to %s\"",
-    "major": "npm version major -m \"Major upgrade to %s\""
+    "major": "npm version major -m \"Major upgrade to %s\"",
+    "pushall": "git push && git push --follow-tags"
   },
   "repository": {
     "type": "git",
