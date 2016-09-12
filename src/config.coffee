@@ -5,7 +5,7 @@
 
 ### Package info and control ###
 Lampyridae.name = "Lampyridae"
-Lampyridae.version = "0.2.5"
+Lampyridae.version = "0.2.6"
 
 ### Global application settings ###
 Lampyridae.enableSimpleGlow = true
