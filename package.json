@@ -37,7 +37,6 @@
   ],
   "author": "Taylor Siviter <taylor@siviter.xyz> (http://siviter.xyz/)",
   "license": "MIT",
-  "private": true,
   "bugs": {
     "url": "https://github.com/siviter-t/lampyridae.coffee/issues"
   },
