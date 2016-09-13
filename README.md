@@ -59,7 +59,10 @@ canvas.addUpdate update             # Update all the fireflies every frame
 canvas.animate()                    # Animate the canvas screen
 ```
 
-Compile this to JavaScript and include it like before after the body tags of the document.
+Compile this to JavaScript and include it like before after the body tags of the document. If all goes well, you should be able to see something like this Pen:
+
+<p data-height="265" data-theme-id="0" data-slug-hash="mAVjzB" data-default-tab="result" data-user="siviter-t" data-embed-version="2" data-preview="true" class="codepen">See the Pen <a href="http://codepen.io/siviter-t/pen/mAVjzB/">Creating Fireflies with lampyridae.coffee</a> by Taylor Siviter (<a href="http://codepen.io/siviter-t">@siviter-t</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
 ### Source Code
 
