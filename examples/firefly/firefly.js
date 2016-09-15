@@ -13,6 +13,10 @@
 
   Lampyridae.Firefly.prototype.speedMax = 5;
 
+  Lampyridae.Firefly.prototype.enableGlow = true;
+
+  Lampyridae.Firefly.prototype.glowFactor = 6;
+
   total = 25;
 
   fireflies = [];

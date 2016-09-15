@@ -11,6 +11,8 @@ require 'particle/firefly'
 canvas = new Lampyridae.Canvas 'world'
 
 Lampyridae.Firefly::speedMax = 5
+Lampyridae.Firefly::enableGlow = true
+Lampyridae.Firefly::glowFactor = 6
 
 total = 25
 fireflies = []
