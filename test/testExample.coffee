@@ -14,6 +14,8 @@ describe 'Testing an example', ->
     # Lampyridae.Firefly::speedMax = 10
     # Lampyridae.Firefly::radiusMax = 5
     # Lampyridae.Firefly::radiusMin = 3
+    Lampyridae.Firefly::enableGlow = true
+    Lampyridae.Firefly::glowFactor = 4
     
     numOfBugs = 25
     bugs = []
