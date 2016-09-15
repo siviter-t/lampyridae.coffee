@@ -6,9 +6,6 @@
 ### Package info and control ###
 Lampyridae.name = "Lampyridae"
 Lampyridae.version = "0.2.6"
-
-### Global application settings ###
-Lampyridae.enableSimpleGlow = true
 Lampyridae.timestep = 1
 
 ### Common variables ###
