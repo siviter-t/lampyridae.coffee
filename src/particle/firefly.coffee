@@ -42,8 +42,8 @@ class Lampyridae.Firefly extends Lampyridae.Particle
   radiusMax: 3.0
   radiusMin: 0.5
   turningAngle: 0.1 * Math.PI
-  hueMax: 102.72 # Light green colour
-  hueMin: 65.28 # Yellowy colour
+  hueMax: 105.76 # Light green colour
+  hueMin: 55.52 # Yellowy colour
   saturation: '100%'
   lightness: '50%'
   opacity: 0.8
