@@ -70,13 +70,13 @@ Compile this to JavaScript and include it like before after the body tags of the
 
 There are two main options for obtaining this source code. You could clone a copy of this repository with git
 
-```
+```bash
 git clone https://github.com/siviter-t/lampyridae.coffee.git
 ```
 
 or you could use npm if you have it installed locally.
 
-```
+```bash
 npm install lampyridae.coffee
 ```
 
