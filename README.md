@@ -25,7 +25,9 @@ Still under active development.
 
 Simply grab the latest minified library from the [lib](lib) directory and include it in a HTML file using the usual script tags. For example
 
-```<script type="text/javascript" src="path/to/js/lampyridae-*.*.*-min.js"></script>```
+```html
+<script type="text/javascript" src="path/to/js/lampyridae-*.*.*-min.js"></script>
+```
 
 where the asterisks should be replaced by the corresponding version of the library you have downloaded and the path should be updated to its actual location for your installation.
 
@@ -35,7 +37,7 @@ You should now be good to go.
 
 Taking the namesake example of this library:
 
-```
+```coffeescript
 # Only the Canvas and base Particle classes are included by default
 require 'particle/firefly'
 
@@ -68,11 +70,15 @@ Compile this to JavaScript and include it like before after the body tags of the
 
 There are two main options for obtaining this source code. You could clone a copy of this repository with git
 
-```git clone https://github.com/siviter-t/lampyridae.coffee.git```
+```
+git clone https://github.com/siviter-t/lampyridae.coffee.git
+```
 
 or you could use npm if you have it installed locally.
 
-```npm install lampyridae.coffee```
+```
+npm install lampyridae.coffee
+```
 
 Using npm might be a good idea mind as lampyridae uses a few development dependencies that are freely available on the platform; such as Brunch and Mocha.
 
