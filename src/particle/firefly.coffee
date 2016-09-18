@@ -49,7 +49,7 @@ class Lampyridae.Firefly extends Lampyridae.Particle
   opacity: 0.8
   bound: "hard"
   enableGlow: false
-  glowFactor: 2.0
+  glowFactor: 4.0
   
   randomTurn: () -> @turn @turningAngle * (2.0 * Math.random() - 1.0)
   
