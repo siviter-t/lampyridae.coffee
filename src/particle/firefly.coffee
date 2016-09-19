@@ -35,7 +35,7 @@ class Lampyridae.Firefly extends Lampyridae.Particle
     super(canvas, options)
   
   ### Firefly class prototype parameters.
-  # Can be set by the user to whatever they wish; e.g. Lampyridae.Bug::radiusMax = 50, etc.
+  # Can be set by the user; e.g. Lampyridae.Firefly::radiusMax = 50, etc.
   ###
   speedMin: 1
   speedMax: 7
@@ -48,8 +48,6 @@ class Lampyridae.Firefly extends Lampyridae.Particle
   lightness: '50%'
   opacity: 0.8
   bound: "hard"
-  enableGlow: false
-  glowFactor: 4.0
   
   randomTurn: () -> @turn @turningAngle * (2.0 * Math.random() - 1.0)
   
