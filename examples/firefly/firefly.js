@@ -5,7 +5,7 @@
  */
 
 (function() {
-  var canvas, createFireflies, fireflies, total, update;
+  var canvas, createFireflies, fireflies, total, updateFireflies;
 
   require('particle/firefly');
 
@@ -15,13 +15,13 @@
 
   Lampyridae.Firefly.prototype.enableGlow = true;
 
-  Lampyridae.Firefly.prototype.glowFactor = 6;
+  Lampyridae.Firefly.prototype.glowFactor = 4;
 
   total = 25;
 
   fireflies = [];
 
-  createFireflies = function() {
+  (createFireflies = function() {
     var firefly, i, j, ref, results;
     results = [];
     for (i = j = 0, ref = total; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
@@ -29,9 +29,9 @@
       results.push(fireflies.push(firefly));
     }
     return results;
-  };
+  })();
 
-  update = function() {
+  updateFireflies = function() {
     var i, j, ref, results;
     results = [];
     for (i = j = 0, ref = total; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
@@ -40,11 +40,14 @@
     return results;
   };
 
-  createFireflies();
+
+  /*
+   * Lights, camera, action!
+   */
 
   canvas.addUpdate(canvas.draw.clear);
 
-  canvas.addUpdate(update);
+  canvas.addUpdate(updateFireflies);
 
   canvas.animate();
 

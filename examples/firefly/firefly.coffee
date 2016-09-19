@@ -6,25 +6,34 @@
 ###
 # Example usage of lampyridae.coffee
 ###
+
+# Only the Canvas and base Particle classes are included by default
 require 'particle/firefly'
 
+# By default, if there is no existing canvas with the id 'world', this will
+# attach '<canvas id="world"></canvas>' under the body element.
 canvas = new Lampyridae.Canvas 'world'
 
-Lampyridae.Firefly::speedMax = 5
-Lampyridae.Firefly::enableGlow = true
-Lampyridae.Firefly::glowFactor = 6
+Lampyridae.Firefly::speedMax = 5       # You can change proto parameters!
+Lampyridae.Firefly::enableGlow = true  # Glow is not enabled by default
+Lampyridae.Firefly::glowFactor = 4     # Default is 4; rerun if changed
 
-total = 25
-fireflies = []
+total = 25                             # Number of fireflies to spawn
+fireflies = []                         # For keeping track of the fireflies
 
-createFireflies = () ->
+# Reusable firefly creator - remember to tweak the total if reused.
+do createFireflies = () ->
   for i in [0...total]
     firefly = new Lampyridae.Firefly canvas
     fireflies.push firefly
 
-update = () -> fireflies[i].update() for i in [0...total]
+# An iterative update over the fireflies - remember to add it to the canvas!  
+updateFireflies = () -> fireflies[i].update() for i in [0...total]
 
-createFireflies()
-canvas.addUpdate canvas.draw.clear
-canvas.addUpdate update
-canvas.animate()
+###
+# Lights, camera, action!
+###
+
+canvas.addUpdate canvas.draw.clear     # If you want the screen to clear between frames
+canvas.addUpdate updateFireflies       # Update all the fireflies every frame
+canvas.animate()                       # Animate the canvas screen
