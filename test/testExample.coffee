@@ -11,11 +11,9 @@ describe 'Testing an example', ->
   before (done) ->
     canvas = new Lampyridae.Canvas 'world'
     
-    # Lampyridae.Firefly::speedMax = 10
-    # Lampyridae.Firefly::radiusMax = 5
-    # Lampyridae.Firefly::radiusMin = 3
+    Lampyridae.Firefly::speedMax = 10
     Lampyridae.Firefly::enableGlow = true
-    Lampyridae.Firefly::glowFactor = 4
+    Lampyridae.Firefly::glowFactor = 10
     
     numOfBugs = 25
     bugs = []
