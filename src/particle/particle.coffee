@@ -41,6 +41,13 @@ class Lampyridae.Particle
         when "none"
         else console.warn "Lampyridae: #{options.bound} is not valid bound. Defaulting to 'none'"
   
+  ### Particle class prototype parameters.
+  # Can be set by the user; e.g. Lampyridae.Particle::enableGlow = true, etc.
+  ###
+  enableAlpha: false
+  enableGlow: false
+  glowFactor: 4.0
+  
   # Movement methods #
   
   ### Velocity component in the x-direction. ###
@@ -130,6 +137,8 @@ class Lampyridae.Particle
   ### Draw the particle to the screen. ###
   draw: () ->
     @canvas.draw.begin()
+    if @enableAlpha then @canvas.draw.setGlobalAlpha @alpha
+    if @enableGlow then @canvas.draw.glow @glowFactor * @r, @colour
     @canvas.draw.circle @x, @y, @r
     @canvas.draw.fill @colour
     @canvas.draw.end()
