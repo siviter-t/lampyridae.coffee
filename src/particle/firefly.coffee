@@ -48,6 +48,7 @@ class Lampyridae.Firefly extends Lampyridae.Particle
   lightness: '50%'
   opacity: 0.8
   bound: "hard"
+  enableAlpha: true
   
   randomTurn: () -> @turn @turningAngle * (2.0 * Math.random() - 1.0)
   
@@ -58,14 +59,6 @@ class Lampyridae.Firefly extends Lampyridae.Particle
   update: () ->
     @fly()
     @draw()
-  
-  draw: () ->
-    @canvas.draw.begin()
-    @canvas.draw.setGlobalAlpha @alpha
-    if @enableGlow then @canvas.draw.glow @glowFactor * @r, @colour
-    @canvas.draw.circle @x, @y, @r
-    @canvas.draw.fill @colour
-    @canvas.draw.end()
 # end class Lampyridae.Firefly
 
 module.exports = Lampyridae.Firefly
