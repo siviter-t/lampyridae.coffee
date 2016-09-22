@@ -4,23 +4,23 @@
 # For full information, see the LICENSE file in the project root.
 
 Lampyridae.Log = {}
-Lampyridae.Log.prefix = "#{window.Lampyridae.name}: "
 
-### Log out a message.
-#
-# @param message [String] Message to log out!
-# @param type [String] Type of output [""|error|info|warn]
-###
-Lampyridae.Log.out = (message, type = "") ->
-  if arguments.length < 1
-    msg = "Nothing to log!"
-    type = "warn"
-  msg = @prefix + msg
-  if window.Lampyridae.logging
-    switch type
-      when "error" then return console.error msg
-      when "info" then return console.info msg
-      when "warn" then return console.warn msg
-      else return console.log msg 
+Lampyridae.Log.default = () -> Lampyridae.Log.warn "Nothing to log!"
+
+Lampyridae.Log.error = (message) ->
+  if arguments.length < 1 then @default() else console.error @wrap(message) 
+
+Lampyridae.Log.info = (message) ->
+  if arguments.length < 1 then @default() else console.info @wrap(message) 
+
+Lampyridae.Log.out = (message) ->
+  if arguments.length < 1 then @default() else console.log @wrap(message) 
+
+Lampyridae.Log.prefix = "#{Lampyridae.name}: "
+
+Lampyridae.Log.warn = (message) ->
+  if arguments.length < 1 then @default() else console.warn @wrap(message)
+
+Lampyridae.Log.wrap = (message) -> @prefix + message
 
 module.exports = Lampyridae.Log
