@@ -5,8 +5,8 @@
 
 ### Package info and control ###
 Lampyridae.name = "Lampyridae"
-Lampyridae.version = "0.3.0"
-Lampyridae.logging = true
+Lampyridae.version = "0.3.1"
+Lampyridae.logging = false
 Lampyridae.timestep = 1
 
 ### Common variables ###
