@@ -50,10 +50,10 @@ class Lampyridae.Firefly extends Lampyridae.Particle
   bound: "hard"
   enableAlpha: true
   
-  ### Random turn; set turngle angle to limit possibilities ###
+  ### Random turn; set turning angle to limit possibilities. ###
   randomTurn: () -> @turn @turningAngle * (2.0 * Math.random() - 1.0)
   
-  ### Random walk with respect to the bounds of the canvas and draw the Firefly ###
+  ### Random walk with respect to the bounds of the canvas and draw the Firefly. ###
   update: () ->
     unless @applyBounds() then @randomTurn()
     @move()
