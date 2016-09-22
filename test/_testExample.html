@@ -13,12 +13,13 @@
       #mocha:hover #mocha-report { display: block; }
       #mocha:hover { width: 90%; height: 90%; opacity: 0.9; overflow-y: scroll; }
     </style>
-    <script src="./../build/lampyridae.js"></script>
+    <script type="text/javascript">var DEBUG = true;</script>
+    <script type="text/javascript" src="./../build/lampyridae.js"></script>
   </head>
   <body>
     <div id="mocha"></div>
-    <script src="./../node_modules/mocha/mocha.js"></script>
-    <script src="./../node_modules/chai/chai.js"></script>
+    <script type="text/javascript" src="./../node_modules/mocha/mocha.js"></script>
+    <script type="text/javascript" src="./../node_modules/chai/chai.js"></script>
     <script>
       mocha.ui('bdd');
       mocha.reporter('html');
