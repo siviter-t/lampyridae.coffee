@@ -6,8 +6,8 @@
 ### Package info and control ###
 Lampyridae.name = "Lampyridae"
 Lampyridae.version = "0.3.1"
-Lampyridae.logging = false
+Lampyridae.logging = false # move to logging object
 Lampyridae.timestep = 1
 
-### Common variables ###
+### Common variables and reference ###
 Lampyridae.PIx2 = 2.0 * Math.PI
