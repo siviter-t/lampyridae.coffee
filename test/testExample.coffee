@@ -28,8 +28,16 @@ describe 'Testing an example', ->
       bugs[i].update() for i in [0...numOfBugs]
       return
     
+    time = 10000
+    randBlendOn = true
+    randBlend = () =>
+      t = Lampyridae.Draw::blendTypes[Math.round(Lampyridae.rand(0, (Lampyridae.Draw::blendTypes.length) - 1))]
+      canvas.draw.setGlobalBlending t
+      Lampyridae.Log.out "Blending = #{t}"
+      if randBlendOn then canvas.schedule time, -> randBlend()
+    
     createBugs()
-    canvas.addUpdate canvas.draw.clear
+    # canvas.addUpdate canvas.draw.clear
     canvas.addUpdate update
     canvas.animate()
     canvas.schedule 5000, -> canvas.pause()
@@ -40,6 +48,8 @@ describe 'Testing an example', ->
     canvas.schedule 6500, -> createBugs()
     canvas.schedule 6500, -> numOfBugs = 50
     canvas.schedule 7000, -> canvas.pause()
+    canvas.schedule 8000, => randBlend()
+    # canvas.schedule 8000, -> canvas.draw.setGlobalBlending "destination-out"
     canvas.schedule 10000, -> canvas.removeUpdate canvas.draw.clear
     done()
   
