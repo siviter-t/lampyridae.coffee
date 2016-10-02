@@ -19,16 +19,26 @@
 #   foo = new Lampyridae.Foo
 #
 do () ->
-   if not window.Lampyridae? then window.Lampyridae = {}
-   else
-      err = new Error 'Lampyridae namespace could not be assigned. Is there a conflict?'
-      err.name = 'FatalError'
-      throw err
-
-"use strict"
+  if not window.Lampyridae? then window.Lampyridae = {}
+  else
+    err = new Error 'Lampyridae namespace could not be assigned. Is there a conflict?'
+    err.name = 'FatalError'
+    throw err
 
 ### Default Requirements ###
 require 'config'
+require 'util/log'
+require 'util/checkSupport'
+
+### Conditional Debugging Mode ###
+# To activate, use `var DEBUG = true` before loading this library!
+if DEBUG? then if DEBUG
+  "use strict"
+  Lampyridae.Log.isLogging = true
+  Lampyridae.Log.info "Debugging on"
+  Lampyridae.Log.info "Version #{Lampyridae.version}"
+
+### Default Requirements - if everything else checks out! ###
 require 'core/canvas'
 require 'core/draw'
 require 'particle/particle'
