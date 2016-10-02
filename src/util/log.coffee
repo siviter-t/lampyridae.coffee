@@ -11,10 +11,14 @@ Lampyridae.Log.error = (message) ->
   if arguments.length < 1 then @default() else console.error @wrap(message) 
 
 Lampyridae.Log.info = (message) ->
-  if arguments.length < 1 then @default() else console.info @wrap(message) 
+  if @isLogging
+    if arguments.length < 1 then @default() else console.info @wrap(message) 
+
+Lampyridae.Log.isLogging = false
 
 Lampyridae.Log.out = (message) ->
-  if arguments.length < 1 then @default() else console.log @wrap(message) 
+  if @isLogging
+    if arguments.length < 1 then @default() else console.log @wrap(message) 
 
 Lampyridae.Log.prefix = "#{Lampyridae.name}: "
 
