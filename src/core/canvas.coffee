@@ -44,8 +44,8 @@ class Lampyridae.Canvas
   ### Appends a generated <canvas> tag to the DOM - if required. ###
   appendCanvas: () ->
     @parent.appendChild @element
-    console.log "Lampyridae: Appended \##{@element.id} to
-                 #{@parent.nodeName.toLowerCase()}\##{@parent.id}"
+    Lampyridae.Log.out "Lampyridae: Appended \##{@element.id} to
+                       #{@parent.nodeName.toLowerCase()}\##{@parent.id}"
   
   # Access/Set/Get methods # 
   
