@@ -28,7 +28,7 @@ describe 'Lampyridae introductory tests', ->
 
 # Determining the current test runner
 testFile = location.pathname.split("/").slice(-1).toString()
-console.log "Test runner: #{testFile}"
+console.info "Test runner: #{testFile}"
 
 # Once the document is ready, start the relevant tests...
 document.addEventListener 'DOMContentLoaded', () ->
