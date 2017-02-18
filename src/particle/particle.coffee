@@ -10,29 +10,27 @@ class Lampyridae.Particle
   #
   # @option x [Number] Position of the particle along the x-axis
   # @option y [Number] Position of the particle along the y-axis
-  # @option theta [Number] Direction of the particle (radians anticlockwise from the x-axis)
-  # @option speed [Number] Speed of the particle
+  # @option vx [Number] Velocity of the particle along the x-axis
+  # @option vy [Number] Velocity of the particle along the y-axis
   # @option radius [Number] Radius of the particle
   # @option bound [String] Type of bounding [none|hard|periodic]
-  # @option alpha [Number] Opacity of the particle
-  # @option enableFill [Bool] Should the particle be filled with @colour
-  # @option colour [String] Colour code of the particle - e.g. "rgb(255, 255, 255)"
-  # @option enableStroke [Bool] Should the particle have a border stroke
-  # @option strokeWidth [Number] Width of the stroke [default: 1]
+  # @option alpha [Number] Opacity of the particle (requires enableAlpha)
+  # @option glow [Number] Factor of the radius to emit a glow effect (requires enableGlow)
+  # @option colour [String] Colour code to fill particle: e.g. "rgb(70, 70, 70)" or "0" = none
+  # @option stroke [Number] Width of the stroke [default: 0]
   # @option strokeColour [String] Colour of the stroke [default: @colour]
   ###
   constructor: (@canvas, options) ->
     unless arguments.length > 0
-      throw new Error "Lampyridae: Particle requires a valid Canvas instance to be attached to"
+      throw new Error "Particle requires a valid Canvas instance to be attached to"
     
     options ?= {}
     if toString.call(options) isnt '[object Object]'
-      throw new Error "Lampyridae: Particle requires a valid object of options"
-    
-    @x = options.x ? 0.0
-    @y = options.y ? 0.0
-    @t = options.theta ? 0.0
-    @v = options.speed ? 0.0
+      throw new Error "Particle requires a valid options object"
+   
+    # Mechanical properties #
+    @pos = new Lampyridae.Vec2D options.x ? 0.0, options.y ? 0.0
+    @vel = new Lampyridae.Vec2D options.vx ? 0.0, options.vy ? 0.0
     @r = options.radius ? 1.0
     @bounded = false
     @periodic = false
@@ -41,102 +39,71 @@ class Lampyridae.Particle
         when "hard" then @bounded = true
         when "periodic" then @bounded = true; @periodic = true
         when "none"
-        else console.warn "Lampyridae: #{options.bound} is not valid bound. Defaulting to 'none'"
+        else console.warn "Bound #{options.bound} is not valid. Defaulting to 'none'"
     
+    # Drawing properties #
+    @glow = options.glow ? 0.0
     @alpha = options.alpha ? 1.0
-    @enableFill = options.enableFill ? true
     @colour = options.colour ? "rgb(255, 255, 255)"
-    @enableStroke = options.enableStroke ? false
-    @strokeWidth = options.strokeWidth ? 1
+    @stroke = options.stroke ? 0
     @strokeColour = options.strokeColour ? @colour
+    @glowColour = options.glowColour ? @colour
+
+    # Temporary calculation variables #
+    @_v = new Lampyridae.Vec2D 0.0, 0.0
     
   ### Particle class prototype parameters.
   # Can be set by the user; e.g. Lampyridae.Particle::enableGlow = true, etc.
   ###
   enableAlpha: false
   enableGlow: false
-  glowFactor: 4.0
   
   # Movement methods #
   
-  ### Velocity component in the x-direction. ###
-  vx: () -> return @v * Math.cos(@t)
-
-  ### Velocity component in the y-direction. ###
-  vy: () -> return @v * Math.sin(@t)
-  
-  ### Turn the particle.
+  ### Turn the particle's velocity!
   #
   # @param angle [Number] Number of radians to turn anticlockwise from the x-axis
   ###
-  turn: (angle = 0.0) -> @t += angle
-  
-  ### Turn the particle around. ###
-  turnAround: () -> @turn Math.PI
-  
-  ### Move the particle using its velocity and this applications defined time step. ###
-  move: () ->
-    @x += Lampyridae.timestep * @vx()
-    @y += Lampyridae.timestep * @vy()
-  
+  turn: (angle = 0.0) -> @vel.rotate(angle)
+
   # Detection and boundary methods #
   
-  ### Is the particle outside the canvas in the x-axis?
-  #
-  # @return [Bool] True if it outside; false otherwise
-  ###
+  ### Is the particle outside the canvas in the x-axis? ###
   isOutsideCanvasX: () ->
-    unless 0.0 <= @x <= @canvas.width() then return true
+    unless 0.0 + @r <= @pos.x <= @canvas.width() - @r then return true
     return false
   
-  ### Is the particle outside the canvas in the y-axis?
-  #
-  # @return [Bool] True if it outside; false otherwise
-  ###
+  ### Is the particle outside the canvas in the y-axis? ###
   isOutsideCanvasY: () ->
-    unless 0.0 <= @y <= @canvas.height() then return true
+    unless 0.0 + @r <= @pos.y <= @canvas.height() - @r then return true
     return false
   
-  ### Is the particle outside the canvas window?
-  #
-  # @return [Bool] True if it outside; false otherwise
-  ###
+  ### Is the particle outside the canvas window? ###
   isOutsideCanvas: () -> return @isOutsideCanvasX() or @isOutsideCanvasY()
   
-  ### Act as if the boundary of the canvas is 'hard-walled'.
-  #
-  # @return [Bool] True if action has been made; false otherwise
-  ###
+  ### Act as if the boundary of the canvas is 'hard-walled'. ###
   applyHardBounds: () ->
-    if @isOutsideCanvas()
-      @turnAround()
-      @move until @isOutsideCanvas()
-      return true
-    return false
+    result = false
+    if @isOutsideCanvasX() then @vel.normalLeft() ; @acc.normalLeft() ; result = true
+    if @isOutsideCanvasY() then @vel.normalRight() ; @acc.normalRight() ; result = true
+    return result
 
-  ### Act as if the boundary of the canvas is 'periodic'.
-  #
-  # @return [Bool] True if action has been made; false otherwise
-  ###
+  ### Act as if the boundary of the canvas is 'periodic'. ###
   applyPeriodicBounds: () ->
     result = false
-    if @isOutsideCanvasX()
-      @x = -@x + @canvas.width()
-      result = true
-    if @isOutsideCanvasY()
-      @y = -@y + @canvas.height()
-      result = true
+    if @isOutsideCanvasX() then @pos.x = -@pos.x + @canvas.width() ; result = true
+    if @isOutsideCanvasY() then @pos.y = -@pos.y + @canvas.height() ; result = true
     return result
   
-  ### Check and act if there are bounds applied.
-  #
-  # @return [Bool] True if action has been made; false otherwise
-  ###
+  ### Check and act if there are bounds applied. ###
   applyBounds: () ->
     if @periodic then return @applyPeriodicBounds()
     if @bounded then return @applyHardBounds()
     return false
-  
+ 
+  ### Move the particle using its velocity in the defined time step. ###
+  move: () -> @pos.add @_v.copy(@vel).scale(Lampyridae.timestep)
+
   ### Simple particle update method. ###
   update: () ->
     @applyBounds()
@@ -150,10 +117,10 @@ class Lampyridae.Particle
   draw: () ->
     @canvas.draw.begin()
     if @enableAlpha then @canvas.draw.setGlobalAlpha @alpha
-    if @enableGlow then @canvas.draw.glow @glowFactor * @r, @colour
-    @canvas.draw.circle @x, @y, @r
-    if @enableFill then @canvas.draw.fill @colour
-    if @enableStroke then @canvas.draw.stroke @strokeWidth, @strokeColour
+    if @enableGlow then @canvas.draw.glow @glow * @r, @glowColour
+    @canvas.draw.circle @pos.x, @pos.y, @r
+    unless @colour == 0 then @canvas.draw.fill @colour
+    if @stroke > 0 then @canvas.draw.stroke @stroke, @strokeColour
     @canvas.draw.end()
 # end class Lampyridae.Particle
 
