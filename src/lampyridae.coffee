@@ -41,4 +41,5 @@ if DEBUG? then if DEBUG
 ### Default Requirements - if everything else checks out! ###
 require 'core/canvas'
 require 'core/draw'
+require 'maths/vec2d'
 require 'particle/particle'
