@@ -26,6 +26,8 @@ class Lampyridae.Firefly extends Lampyridae.Particle
     options.y ?= Lampyridae.rand 0, canvas.height()
     options.speed ?= Lampyridae.rand @speedMin, @speedMax
     options.theta ?= Lampyridae.rand 0.0, Lampyridae.PIx2
+    options.vx = options.speed * Math.cos(options.theta)
+    options.vy = options.speed * Math.sin(options.theta)
     options.radius ?= Lampyridae.rand @radiusMin, @radiusMax
     options.alpha ?= @opacity
     options.bound ?= @bound
@@ -37,10 +39,10 @@ class Lampyridae.Firefly extends Lampyridae.Particle
   ### Firefly class prototype parameters.
   # Can be set by the user; e.g. Lampyridae.Firefly::radiusMax = 50, etc.
   ###
-  speedMin: 1
-  speedMax: 7
+  speedMin: 1.0
+  speedMax: 1.5
   radiusMax: 3.0
-  radiusMin: 0.5
+  radiusMin: 0.8
   turningAngle: 0.1 * Math.PI
   hueMax: 123.55 # Green
   hueMin: 64.86 # Yellowy
