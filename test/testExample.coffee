@@ -12,10 +12,10 @@ describe 'Testing an example', ->
     canvas = new Lampyridae.Canvas 'world'
     
     Lampyridae.Firefly::speedMax = 10
-    Lampyridae.Firefly::enableGlow = true
-    Lampyridae.Firefly::glowFactor = 10
+    # Lampyridae.Firefly::enableGlow = true
+    # Lampyridae.Firefly::glowFactor = 10
     
-    numOfBugs = 25
+    numOfBugs = 5
     bugs = []
     
     createBugs = () ->
@@ -31,26 +31,27 @@ describe 'Testing an example', ->
     time = 10000
     randBlendOn = true
     randBlend = () =>
-      t = Lampyridae.Draw::blendTypes[Math.round(Lampyridae.rand(0, (Lampyridae.Draw::blendTypes.length) - 1))]
+      idx = Math.round(Lampyridae.rand(0, (Lampyridae.Draw::blendTypes.length) - 1))
+      t = Lampyridae.Draw::blendTypes[idx]
       canvas.draw.setGlobalBlending t
-      Lampyridae.Log.out "Blending = #{t}"
+      # Lampyridae.Log.out "Blending = #{t}"
       if randBlendOn then canvas.schedule time, -> randBlend()
     
     createBugs()
-    # canvas.addUpdate canvas.draw.clear
+    canvas.addUpdate canvas.draw.clear
     canvas.addUpdate update
     canvas.animate()
-    canvas.schedule 5000, -> canvas.pause()
-    canvas.schedule 6000, -> Lampyridae.Firefly::opacity = 0.01
-    canvas.schedule 6000, -> Lampyridae.Firefly::hueMin = 240
-    canvas.schedule 6000, -> Lampyridae.Firefly::hueMax = 360
-    canvas.schedule 6000, -> Lampyridae.Firefly::radiusMax = 50
-    canvas.schedule 6500, -> createBugs()
-    canvas.schedule 6500, -> numOfBugs = 50
-    canvas.schedule 7000, -> canvas.pause()
-    canvas.schedule 8000, => randBlend()
+    # canvas.schedule 5000, -> canvas.pause()
+    # canvas.schedule 6000, -> Lampyridae.Firefly::opacity = 0.01
+    # canvas.schedule 6000, -> Lampyridae.Firefly::hueMin = 240
+    # canvas.schedule 6000, -> Lampyridae.Firefly::hueMax = 360
+    # canvas.schedule 6000, -> Lampyridae.Firefly::radiusMax = 50
+    # canvas.schedule 6500, -> createBugs()
+    # canvas.schedule 6500, -> numOfBugs = 50
+    # canvas.schedule 7000, -> canvas.pause()
+    # canvas.schedule 8000, => randBlend()
     # canvas.schedule 8000, -> canvas.draw.setGlobalBlending "destination-out"
-    canvas.schedule 10000, -> canvas.removeUpdate canvas.draw.clear
+    # canvas.schedule 10000, -> canvas.removeUpdate canvas.draw.clear
     done()
   
   it 'A <canvas> tag should exist', -> should.exist document.getElementById('world')
