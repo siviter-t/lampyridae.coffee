@@ -86,6 +86,6 @@ Using npm might be a good idea mind as lampyridae uses a few development depende
 
 MIT License.
 
-Copyright (c) 2016 Taylor Siviter.
+Copyright (c) 2016-17 Taylor Siviter.
 
 See [LICENSE](LICENSE) for full information.
