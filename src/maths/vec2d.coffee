@@ -82,7 +82,9 @@ class Lampyridae.Vec2D
 
   ### Return a vector rotated by the given angle in radians; from x-axis clockwise. ###
   rotate: (a) ->
-    @x = @x*Math.cos(a) - @y*Math.sin(a) ; @y = @x*Math.sin(a) + @y*Math.cos(a) ; return @
+    x = @x * Math.cos(a) - @y * Math.sin(a)
+    y = @x * Math.sin(a) + @y * Math.cos(a)
+    @x = `Math.abs(x) < 1e-10 ? 0 : x` ; @y = `Math.abs(y) < 1e-10 ? 0 : y`; return @ 
 
   ### Multiply the vector components by a scalar parameter. ###
   scale: (q) -> @x = q * @x ; @y = q * @y ; return @
