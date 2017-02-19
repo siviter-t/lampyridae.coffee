@@ -3,6 +3,8 @@
 # This source code is licensed under the MIT License.
 # For full information, see the LICENSE file in the project root.
 
+require 'core/draw'
+
 class Lampyridae.Canvas
   ### Construct and manage a Canvas object.
   #
@@ -11,7 +13,7 @@ class Lampyridae.Canvas
   ###
   constructor: (id, @parent = 'body') ->
     if arguments.length < 1
-      throw new Error "Lampyridae: Canvas requires an \#id selector"
+      throw new Error "Canvas requires an \#id selector"
     
     # Control variables
     @_updateStack = [] # Stores a stack of functions to call every update
@@ -44,7 +46,7 @@ class Lampyridae.Canvas
   ### Appends a generated <canvas> tag to the DOM - if required. ###
   appendCanvas: () ->
     @parent.appendChild @element
-    Lampyridae.Log.out "Lampyridae: Appended \##{@element.id} to
+    Lampyridae.Log.out "Appended \##{@element.id} to
                        #{@parent.nodeName.toLowerCase()}\##{@parent.id}"
   
   # Access/Set/Get methods # 
@@ -99,7 +101,7 @@ class Lampyridae.Canvas
   ###
   addUpdate: (f) =>
     if toString.call(f) isnt '[object Function]'
-      throw new Error "Lampyridae: Canvas.addUpdate requires a function"
+      throw new Error "Canvas.addUpdate requires a function"
     @_updateStack.push f
   
   ### Removes the top function from the update stack.
@@ -120,7 +122,7 @@ class Lampyridae.Canvas
   ###
   removeUpdate: (f) =>
     if toString.call(f) isnt '[object Function]'
-      throw new Error "Lampyridae: Canvas.addUpdate requires a function"
+      throw new Error "Canvas.addUpdate requires a function"
     for i in [@_updateStack.length - 1..0] by -1
       if @_updateStack[i] == f
         @_updateStack.splice(i, 1)

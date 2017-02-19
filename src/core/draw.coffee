@@ -10,10 +10,10 @@ class Lampyridae.Draw
   ###
   constructor: (@canvas) ->
     if arguments.length < 1
-      throw new Error "Lampyridae: Draw requires an instance of Canvas"
+      throw new Error "Draw requires an instance of Canvas"
     
     @ctx = @canvas.context
-    Lampyridae.Log.out "Lampyridae: Initialised 2D drawing object for \##{@canvas.id()} "
+    Lampyridae.Log.out "Initialised 2D drawing object for \##{@canvas.id()} "
   
   ### Prototype parameters. ###
   blendTypes: ["source-over", "source-in", "source-out", "source-atop", "destination-over",
