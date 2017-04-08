@@ -33,6 +33,7 @@ class Lampyridae.Particle
     # Mechanical properties #
     @pos = new Lampyridae.Vec2D options.x ? 0.0, options.y ? 0.0
     @vel = new Lampyridae.Vec2D options.vx ? 0.0, options.vy ? 0.0
+    @acc = new Lampyridae.Vec2D 0, 0
     @r = options.radius ? 1.0
     @bounded = false
     @periodic = false
@@ -105,7 +106,6 @@ class Lampyridae.Particle
       when "periodic" then @bounded = false; @periodic = true
       when "none" then @bounded = false; @periodic = false
       else console.warn "Bound #{b} is not valid. Defaulting to 'none'"
-    console.log b
 
   ### Move the particle using its velocity in the defined time step. ###
   move: () -> @pos.add @_v.copy(@vel).scale(Lampyridae.timestep)
