@@ -36,12 +36,7 @@ class Lampyridae.Particle
     @r = options.radius ? 1.0
     @bounded = false
     @periodic = false
-    if options.bound?
-      switch options.bound
-        when "hard" then @bounded = true
-        when "periodic" then @bounded = true; @periodic = true
-        when "none"
-        else console.warn "Bound #{options.bound} is not valid. Defaulting to 'none'"
+    @changeBounds(options.bound ? 'none')
     
     # Drawing properties #
     @glow = options.glow ? 0.0
@@ -102,7 +97,16 @@ class Lampyridae.Particle
     if @periodic then return @applyPeriodicBounds()
     if @bounded then return @applyHardBounds()
     return false
- 
+
+  ### Change the current bounds of the particle. ###
+  changeBounds: (b = 'none') ->
+    switch b
+      when "hard" then @bounded = true; @periodic = false
+      when "periodic" then @bounded = false; @periodic = true
+      when "none" then @bounded = false; @periodic = false
+      else console.warn "Bound #{b} is not valid. Defaulting to 'none'"
+    console.log b
+
   ### Move the particle using its velocity in the defined time step. ###
   move: () -> @pos.add @_v.copy(@vel).scale(Lampyridae.timestep)
 
