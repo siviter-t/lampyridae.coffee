@@ -36,7 +36,7 @@ class Lampyridae.Firefly extends Lampyridae.Particle
       options.colour = "rgb(#{c[0]}, #{c[1]}, #{c[2]})"
     super(canvas, options)
   
-  ### Firefly class prototype parameters.
+  ### Firefly class prototype default parameters.
   # Can be set by the user; e.g. Lampyridae.Firefly::radiusMax = 50, etc.
   ###
   speedMin: 1.0
@@ -49,8 +49,8 @@ class Lampyridae.Firefly extends Lampyridae.Particle
   saturation: '100%'
   lightness: '50%'
   opacity: 0.8
+  glow: 4
   bound: "hard"
-  enableAlpha: true
   
   ### Random turn; set turning angle to limit possibilities. ###
   randomTurn: () -> @turn @turningAngle * (2.0 * Math.random() - 1.0)
@@ -58,7 +58,7 @@ class Lampyridae.Firefly extends Lampyridae.Particle
   ### Random walk with respect to the bounds of the canvas and draw the Firefly. ###
   update: () ->
     unless @applyBounds() then @randomTurn()
-    @move()
+    @move_noa()
     @draw()
 # end class Lampyridae.Firefly
 

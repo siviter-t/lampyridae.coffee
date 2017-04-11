@@ -19,8 +19,8 @@ class Lampyridae.Particle
   # @option mass [Number] Acceleration of the particle along the y-axis
   # @option radius [Number] Radius of the particle
   # @option bound [String] Type of bounding [none|hard|periodic]
-  # @option alpha [Number] Opacity of the particle (requires enableAlpha)
-  # @option glow [Number] Factor of the radius to emit a glow effect (requires enableGlow)
+  # @option alpha [Number] Opacity of the particle
+  # @option glow [Number] Factor of the radius to emit a glow effect
   # @option colour [String] Colour code to fill particle: e.g. "rgb(70, 70, 70)" or "0" = none
   # @option stroke [Number] Width of the stroke [default: 0]
   # @option strokeColour [String] Colour of the stroke [default: @colour]
@@ -59,13 +59,6 @@ class Lampyridae.Particle
     @_a = new Lampyridae.Vec2D 0.0, 0.0
     @_F = new Lampyridae.Vec2D 0.0, 0.0
   
-  ### Particle class prototype parameters.
-  # Can be set by the user; e.g. Lampyridae.Particle::enableGlow = true, etc.
-  # TODO Deprecate
-  ###
-  enableAlpha: false
-  enableGlow: false
- 
   # Detection and boundary methods #
   
   ### Check and act if there are bounds applied. ###
@@ -175,17 +168,20 @@ class Lampyridae.Particle
   # Drawing methods #
   
   ### Draw the particle to the screen.
-  # Alpha and glow can be toggled by proto members
-  # Fill and stroke can be toggled by instance members
+  # Most properties can be toggled when instance members reach certain thresholds.
+  # For example, the glow effect is enabled when glow
   ###
   draw: () ->
     @canvas.draw.begin()
-    if @enableAlpha then @canvas.draw.setGlobalAlpha @alpha
-    if @enableGlow then @canvas.draw.glow @glow * @r, @glowColour
-    @canvas.draw.circle @pos.x, @pos.y, @r
-    unless @colour == 0 then @canvas.draw.fill @colour
-    if @stroke > 0 then @canvas.draw.stroke @stroke, @strokeColour
+    @draw_alpha() ; @draw_glow()
+    @draw_particle() ; @draw_fill() ; @draw_stroke()
     @canvas.draw.end()
+
+  draw_alpha: () -> if @alpha < 1.0 then @canvas.draw.setGlobalAlpha @alpha
+  draw_glow: () -> if @glow > 0.0 then @canvas.draw.glow @glow * @r, @glowColour
+  draw_fill: () -> unless @colour == 0 then @canvas.draw.fill @colour
+  draw_particle: () -> @canvas.draw.circle @pos.x, @pos.y, @r
+  draw_stroke: () -> if @stroke > 0 then @canvas.draw.stroke @stroke, @strokeColour
 # end class Lampyridae.Particle
 
 module.exports = Lampyridae.Particle
