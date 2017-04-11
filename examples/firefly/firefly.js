@@ -24,8 +24,6 @@
 
     Settings.prototype.Bounds = Lampyridae.Firefly.prototype.bound;
 
-    Settings.prototype.Radius = 0;
-
     Settings.prototype.Glow = Lampyridae.Firefly.prototype.glow;
 
     Settings.prototype.Opacity = Lampyridae.Firefly.prototype.opacity;
@@ -45,10 +43,6 @@
 
     Settings.prototype.changeGlow = function(value) {
       return updateProperty('glow', value);
-    };
-
-    Settings.prototype.changeRadius = function(value) {
-      return addProperty('r', value);
     };
 
     return Settings;
@@ -120,7 +114,6 @@
     fG.add(settings, 'Bounds', ['none', 'hard', 'periodic']).onChange(settings.changeBound);
     fG.open();
     fD = gui.addFolder('Drawing Style');
-    fD.add(settings, 'Radius').min(0).max(50).step(1).onChange(settings.changeRadius);
     fD.add(settings, 'Glow').min(0).max(50).step(1).onChange(settings.changeGlow);
     return fD.add(settings, 'Opacity').min(0).max(1).step(0.05).onChange(settings.changeAlpha);
   })();
