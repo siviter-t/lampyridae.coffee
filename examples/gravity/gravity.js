@@ -7,7 +7,7 @@
 (function() {
   var canvas, i, k, options, particles, ref, total, updateAll, xMid, yMid;
 
-  require('particle/forceParticle');
+  require('maths/forces');
 
   canvas = new Lampyridae.Canvas('world');
 
@@ -24,7 +24,7 @@
     colour: "#AB621D"
   };
 
-  Lampyridae.ForceParticle.prototype.enableGlow = true;
+  Lampyridae.Particle.prototype.enableGlow = true;
 
   options.x = xMid;
 
@@ -36,7 +36,7 @@
 
   options.vy = 0.0;
 
-  particles.push(new Lampyridae.ForceParticle(canvas, options));
+  particles.push(new Lampyridae.Particle(canvas, options));
 
   options.radius = 5.0;
 
@@ -48,7 +48,7 @@
 
   options.colour = "#A82310";
 
-  particles.push(new Lampyridae.ForceParticle(canvas, options));
+  particles.push(new Lampyridae.Particle(canvas, options));
 
   options.radius = 12;
 
@@ -60,7 +60,7 @@
 
   options.colour = "#A82310";
 
-  particles.push(new Lampyridae.ForceParticle(canvas, options));
+  particles.push(new Lampyridae.Particle(canvas, options));
 
   options.y = yMid;
 
@@ -74,7 +74,7 @@
 
   options.colour = "rgb(30, 60, 100)";
 
-  particles.push(new Lampyridae.ForceParticle(canvas, options));
+  particles.push(new Lampyridae.Particle(canvas, options));
 
   options.radius = 10.0;
 
@@ -86,7 +86,7 @@
 
   options.colour = "rgb(157, 85, 60)";
 
-  particles.push(new Lampyridae.ForceParticle(canvas, options));
+  particles.push(new Lampyridae.Particle(canvas, options));
 
   options.radius = 40;
 
@@ -110,7 +110,7 @@
 
   options.glowColour = "rgb(255, 242, 204)";
 
-  particles.push(new Lampyridae.ForceParticle(canvas, options));
+  particles.push(new Lampyridae.Particle(canvas, options));
 
   total = particles.length;
 
