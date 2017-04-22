@@ -1,5 +1,5 @@
 # @file firefly.coffee
-# @Copyright (c) 2016 Taylor Siviter
+# @Copyright (c) 2017 Taylor Siviter
 # This source code is licensed under the MIT License.
 # For full information, see the LICENSE file in the project root.
 
