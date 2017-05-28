@@ -34,5 +34,6 @@ class Lampyridae.Paraparticle extends Lampyridae.Particle
     @pos.copy @para.eval(@var, args...)
     @pos.add @_P
     @draw()
+#end class Lampyridae.Paraparticle
 
 module.exports = Lampyridae.Paraparticle
