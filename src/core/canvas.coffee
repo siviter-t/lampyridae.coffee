@@ -149,7 +149,10 @@ class Lampyridae.Canvas
   
   ### Stops the animation outright. ### 
   stop: () => @_stopAnim = true
-  
+ 
+  ### Get PNG data URI for this canvas. ###
+  getUriPNG: () => @element.toDataURL 'image/png'
+
   # Helper Methods #
   
   ### Schedule a functon to call after a specified time
