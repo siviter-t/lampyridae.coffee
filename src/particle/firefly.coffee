@@ -4,7 +4,7 @@
 # For full information, see the LICENSE file in the project root.
 
 require 'maths/rand'
-require 'util/hslToRgb'
+require 'util/colour/hslToRgb'
 
 class Lampyridae.Firefly extends Lampyridae.Particle
   ### Construct and manage a Lampyridae firefly 'particle'.
