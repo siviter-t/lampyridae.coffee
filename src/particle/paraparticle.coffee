@@ -6,9 +6,11 @@
 require 'maths/para2d'
 
 class Lampyridae.Paraparticle extends Lampyridae.Particle
-  ### Construct a N-dimensional parametric equation.
+  ### Construct a parametric equation obeying particle.
   #
-  # @param dimension [Integer] Number of coordinates or parametric equations
+  # @option var [Number] Independent variable
+  # @option rate [Number] Rate of variable increment
+  # @option para [Para2D] Parametric equations
   ###
   constructor: (canvas, options) ->
     @var = options.var ? 0
@@ -18,13 +20,18 @@ class Lampyridae.Paraparticle extends Lampyridae.Particle
     @_P = new Lampyridae.Vec2D 0, 0
     @_P.copy @pos
 
+  # Setters - TODO document/move to base #
   setVar: (v) -> @var = v
   setRate: (r) -> @rate = r
   setPos: (vec) -> @_P.copy(vec)
 
-  update: (params...) ->
+  ### Update the particle
+  #
+  # @param args [...] Optional parameters that define the parametric system
+  ###
+  update: (args...) ->
     @var += @rate * Lampyridae.timestep
-    @pos.copy @para.eval(@var, params...)
+    @pos.copy @para.eval(@var, args...)
     @pos.add @_P
     @draw()
 
