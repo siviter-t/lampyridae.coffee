@@ -5,7 +5,7 @@
 
 ### Package info and control ###
 Lampyridae.name = "Lampyridae"
-Lampyridae.version = "0.3.6"
+Lampyridae.version = "0.3.7"
 Lampyridae.timestep = 1
 
 ### Common variables and reference ###
