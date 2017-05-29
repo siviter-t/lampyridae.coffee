@@ -117,31 +117,31 @@ presets =
   'preset': 'Deltoid'
   'remembered':
     'Tusi Couple': '0':
-      'Curve': 2, 'Rate': 0.01, 'Radius': 360
+      'Curve': 2, 'Rate': 0.01, 'Radius': Math.floor 3 * settings.max_radius() / 4
       'ParticleColour': 'rgb(200, 200, 255)', 'CircleColour': 'rgb(200, 200, 255)'
       'CycleColour': false, 'CycleRate': 1, 'Alpha': 0.6, 'Glow': 0, 'DrawCircle': true
     'Deltoid': '0':
-      'Curve': 3, 'Rate': 0.01, 'Radius': 360
+      'Curve': 3, 'Rate': 0.01, 'Radius': Math.floor 3 * settings.max_radius() / 4
       'ParticleColour': 'rgb(200, 200, 255)', 'CircleColour': 'rgb(200, 200, 255)'
       'CycleColour': false, 'CycleRate': 1, 'Alpha': 0.6, 'Glow': 0, 'DrawCircle': true
     'Astroid': '0':
-      'Curve': 4, 'Rate': 0.01, 'Radius': 360
+      'Curve': 4, 'Rate': 0.01, 'Radius': Math.floor 3 * settings.max_radius() / 4
       'ParticleColour': 'rgb(200, 200, 255)', 'CircleColour': 'rgb(200, 200, 255)'
       'CycleColour': false, 'CycleRate': 1, 'Alpha': 0.6, 'Glow': 0, 'DrawCircle': true
     'Pi': '0':
-      'Curve': 3.14159265359, 'Rate': 0.01, 'Radius': 360
+      'Curve': 3.14159265359, 'Rate': 0.01, 'Radius': Math.floor 3 * settings.max_radius() / 4
       'ParticleColour': 'rgb(255,0,0)', 'CircleColour': 'rgb(255,0,0)'
       'CycleColour': true, 'CycleRate': 3.14, 'Alpha': 0.4, 'Glow': 1, 'DrawCircle': true
     'Euler\'s number': '0':
-      'Curve': 2.71828182846, 'Rate': 0.04, 'Radius': 360
+      'Curve': 2.71828182846, 'Rate': 0.04, 'Radius': Math.floor 3 * settings.max_radius() / 4
       'ParticleColour': 'rgb(198,218,164)', 'CircleColour': 'rgb(198,218,164)'
       'CycleColour': true, 'CycleRate': 2.72, 'Alpha': 0.4, 'Glow': 1, 'DrawCircle': true
     'Heart': '0':
-      'Curve': 0.5, 'Rate': 0.02, 'Radius': 120
+      'Curve': 0.5, 'Rate': 0.02, 'Radius': Math.floor settings.max_radius() / 4
       'ParticleColour': 'rgb(255,40,100)', 'CircleColour': 'rgb(255, 40, 100)'
       'CycleColour': false, 'CycleRate': 1, 'Alpha': 0.8, 'Glow': 0, 'DrawCircle': false
     '3-Leaf Clover': '0':
-      'Curve': 0.75, 'Rate': 0.02, 'Radius': 200
+      'Curve': 0.75, 'Rate': 0.02, 'Radius': Math.floor 1.8 * settings.max_radius() / 4
       'ParticleColour': 'rgb(10, 250, 5)', 'CircleColour': 'rgb(10, 250, 5)'
       'CycleColour': false, 'CycleRate': 1, 'Alpha': 0.8, 'Glow': 0, 'DrawCircle': false
   'closed': false
