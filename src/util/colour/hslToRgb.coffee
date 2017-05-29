@@ -14,6 +14,8 @@
 # @return [Array] The RGB representation [0, 255]
 ###
 Lampyridae.hslToRgb = (h, s, l) ->
+  if arguments.length == 1 then l = h[2] ; s = h[1] ; h = h[0]
+
   h = parseFloat(h) / 360.0
   s = parseFloat(s) / 100.0
   l = parseFloat(l) / 100.0

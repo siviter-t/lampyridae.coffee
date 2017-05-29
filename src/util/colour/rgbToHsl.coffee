@@ -13,6 +13,8 @@
 # @return [Array] The HSL representation [0..360, 0..100, 0..100]
 ###
 Lampyridae.rgbToHsl = (r, g, b) ->
+  if arguments.length == 1 then b = r[2] ; g = r[1] ; r = r[0]
+
   r = parseFloat(r) / 255.0
   g = parseFloat(g) / 255.0
   b = parseFloat(b) / 255.0
